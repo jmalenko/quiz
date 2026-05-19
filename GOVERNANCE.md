@@ -44,6 +44,14 @@ The AI derives final artifacts from Detailed. Source code, test scripts, deploym
 
 **Rule:** Always fix at the *earliest* affected process. Never patch a downstream artifact if the root cause is upstream.
 
+### Propagation Rule
+
+**Within a process:**\
+A change at High Level MUST be propagated to Detailed (and then to Artifacts) before the quality gate is passed. No process may pass its quality gate while layers are inconsistent.
+
+**Across processes:**\
+A change in any process MUST propagate to all affected downstream processes before their quality gates are passed. Each process declares its upstream dependency via attribution.
+
 ## 4. Directory Convention
 
 ```

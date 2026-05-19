@@ -71,11 +71,11 @@ Technology choices are deferred to Architecture Definition (Process 04).
 | ID | Type | Description | Rationale |
 |----|------|-------------|-----------|
 | C-01 | Technology | Web frontend | Cross-platform accessibility |
+| C-02 | Goal | Maximize AI generation | Automate everything; human provides only high-level input |
 | A-01 | Assumption | No admin UI in v1 | Questions managed via file |
 | A-02 | Assumption | No user management | Anonymous players, no login |
 | A-03 | Assumption | Single quiz at a time | No quiz selection in v1 |
 | A-04 | Assumption | No persistence of results | Player scores shown but not stored |
-| G-01 | Goal | Maximize AI generation | Automate everything; human provides only high-level input |
 
 ## 6. Feasibility Assessment — Detailed
 

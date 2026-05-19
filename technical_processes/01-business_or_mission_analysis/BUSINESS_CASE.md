@@ -27,12 +27,12 @@ A fully automated, end-to-end delivered system to which engineer enters only hig
 Success = the entire system is generated, tested, and deployed with only high-level human input at each process stage.
 
 ## 5. Constraints and Assumptions
-| Type | Description                                                              |
-|------|--------------------------------------------------------------------------|
-| Technology | web frontend |
-| Goal | Maximize AI generation — automate everything                             |
-| Assumption | Questions are loaded from a static source (no admin UI needed initially) |
-| Assumption | No user management |
+| ID | Type | Description                                                              |
+|----|------|--------------------------------------------------------------------------|
+| C-01 | Technology | web frontend |
+| C-02 | Goal | Maximize AI generation — automate everything                             |
+| A-01 | Assumption | Questions are loaded from a static source (no admin UI needed initially) |
+| A-02 | Assumption | No user management |
 
 ## 6. Feasibility Assessment
 | Dimension | Assessment |

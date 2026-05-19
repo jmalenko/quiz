@@ -14,22 +14,22 @@ All rules governing this project are defined in [GOVERNANCE.md](GOVERNANCE.md).
 
 ### Technical Processes
 
-| Process | Location                                                                | Quality Gate |
-|---------|-------------------------------------------------------------------------|--------------|
-| Business or Mission Analysis | [BUSINESS_CASE.md](technical_processes/01-business_or_mission_analysis/BUSINESS_CASE.md) | Is the business case justified? |
-| Stakeholder Needs & Requirements Definition | [STORIES.md](technical_processes/02-stakeholder_needs_and_requirements_definition/STORIES.md) | Are stakeholder needs clear and complete? |
-| Systems/Software Requirements Definition | `technical_processes/03-system_software_requirements_definition/`       | Are requirements testable and traceable? |
-| Architecture Definition | `technical_processes/04-architecture_definition/`                       | Is the architecture sound and justified? |
-| Design Definition | `technical_processes/05-design_definition/`                             | Is the design implementable? |
-| System Analysis | `technical_processes/06-system_analysis/`                               | Is the system analysis satisfactory (risks acceptable)? |
-| Implementation | `technical_processes/07-implementation/`                                | Does the code match the design? |
-| Integration | `technical_processes/08-integration/`                                   | Are components successfully integrated? |
-| Verification | `technical_processes/09-verification/`                                  | Does the system meet requirements? |
-| Transition | `technical_processes/10-transition/`                                    | Is the system deployed and operational? |
-| Validation | `technical_processes/11-validation/`                                    | Does the system satisfy stakeholder needs? |
-| Operation | `technical_processes/12-operation/`                                     | Is the system operating within SLA? |
-| Maintenance | `technical_processes/13-maintenance/`                                   | Is the maintenance release ready? |
-| Disposal | `technical_processes/14-disposal/`                                      | — |
+| Process | Location                                                                                                                                       | Quality Gate |
+|---------|------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Business or Mission Analysis | 01-business_or_mission_analysis/[BUSINESS_CASE.md](technical_processes/01-business_or_mission_analysis/BUSINESS_CASE.md)                       | Is the business case justified? |
+| Stakeholder Needs & Requirements Definition | 02-stakeholder_needs_and_requirements_definition/[STORIES.md](technical_processes/02-stakeholder_needs_and_requirements_definition/STORIES.md) | Are stakeholder needs clear and complete? |
+| Systems/Software Requirements Definition | `technical_processes/03-system_software_requirements_definition/`                                                                              | Are requirements testable and traceable? |
+| Architecture Definition | `technical_processes/04-architecture_definition/`                                                                                              | Is the architecture sound and justified? |
+| Design Definition | `technical_processes/05-design_definition/`                                                                                                    | Is the design implementable? |
+| System Analysis | `technical_processes/06-system_analysis/`                                                                                                      | Is the system analysis satisfactory (risks acceptable)? |
+| Implementation | `technical_processes/07-implementation/`                                                                                                       | Does the code match the design? |
+| Integration | `technical_processes/08-integration/`                                                                                                          | Are components successfully integrated? |
+| Verification | `technical_processes/09-verification/`                                                                                                         | Does the system meet requirements? |
+| Transition | `technical_processes/10-transition/`                                                                                                           | Is the system deployed and operational? |
+| Validation | `technical_processes/11-validation/`                                                                                                           | Does the system satisfy stakeholder needs? |
+| Operation | `technical_processes/12-operation/`                                                                                                            | Is the system operating within SLA? |
+| Maintenance | `technical_processes/13-maintenance/`                                                                                                          | Is the maintenance release ready? |
+| Disposal | `technical_processes/14-disposal/`                                                                                                             | — |
 
 ### Technical Management Processes
 
