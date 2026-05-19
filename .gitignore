@@ -1,0 +1,10 @@
+# IDE
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Generated artifacts (tracked separately per phase)
+# Uncomment if you want to ignore AI-generated outputs until approved:
+# **/GENERATED_*.md
