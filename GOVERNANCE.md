@@ -1,169 +1,98 @@
-# Governance Rules & Quality Gates — IEEE/IEC 12207 Waterfall
+# Governance
 
-## 1. Standard Alignment
+## 1. Standard
 
-This governance framework implements **IEEE/IEC 12207:2017 — Systems and software engineering — Software life cycle processes** in a sequential (waterfall) execution model with 11 phases and 11 quality gates.
+This project follows **IEEE/IEC 12207:2017 — Systems and software engineering — Software life cycle processes**.
 
-## 2. Roles
+## 2. Governance Files
 
-| Role | Responsibility |
-|------|---------------|
-| **Acquirer/Product Owner** (Human) | Defines needs, approves gates, final GO/NO-GO |
-| **AI Engineer** (AI) | Generates all technical artifacts per phase |
-| **Reviewer** (Human) | Reviews AI output at quality gates |
+Every directory MAY contain a `GOVERNANCE.md` file that defines rules specific to that directory.
 
-## 3. Process Flow
+The **effective governance** for any directory is the combination of all `GOVERNANCE.md` files from the root down to that directory. Rules are inherited: a child directory inherits all rules from its parents. A child may add rules but MUST NOT contradict a parent rule.
 
-```
-00 Stakeholder Needs ──QG1──► 10 Requirements ──QG2──► 20 Architecture
-──QG3──► 30 Design ──QG4──► 40 Implementation ──QG5──► 50 Integration
-──QG6──► 60 Verification ──QG7──► 70 Validation ──QG8──► 80 Transition
-──QG9──► 90 Operation ──QG10──► 95 Maintenance ──QG-M──► (reentry)
-```
+## 3. Three-Layer Content Model
 
-## 4. Quality Gates
+Every directory follows a 3-layer model:
 
-### QG1: Stakeholder Needs → Requirements
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | All stakeholders identified | ☐ |
-| 2 | Each stakeholder has documented needs | ☐ |
-| 3 | Success criteria are measurable | ☐ |
-| 4 | System boundaries clear | ☐ |
-| 5 | Constraints stated | ☐ |
-| 6 | **Human Decision**: Needs approved | ☐ |
+| Layer | Author | Location |
+|-------|--------|----------|
+| **Layer 1 — Intent** | Human | directory root |
+| **Layer 2 — Detailed Specification** | AI (from Layer 1), Human reviews (iteration with AI), approves and is responsible | `detailed/` |
+| **Layer 3 — Artifacts** | AI (from Layer 2) | `generated/` |
 
-### QG2: Requirements → Architecture
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | All needs traceable to requirements | ☐ |
-| 2 | Requirements uniquely identified | ☐ |
-| 3 | Each requirement testable | ☐ |
-| 4 | No conflicts | ☐ |
-| 5 | Priority assigned (MoSCoW) | ☐ |
-| 6 | Requirements baselined | ☐ |
-| 7 | **Human Decision**: Requirements approved | ☐ |
+### Layer 1 — Human Intent (high-level)
+The human writes key content: decisions, constraints, needs, preferences. Brief, natural language.
 
-### QG3: Architecture → Design
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | All requirements allocated to components | ☐ |
-| 2 | Components have single responsibilities | ☐ |
-| 3 | All interfaces defined | ☐ |
-| 4 | Technology decisions justified (ADRs) | ☐ |
-| 5 | Quality attributes addressed | ☐ |
-| 6 | Deployment view feasible | ☐ |
-| 7 | **Human Decision**: Architecture approved | ☐ |
+### Layer 2 — Detailed Specification (AI-generated, human-reviewed)
+The AI expands Layer 1 into structured, detailed content. The human reviews, corrects, and approves. Once approved, the human is responsible for Layer 2.
 
-### QG4: Design → Implementation
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | Every component has internal design | ☐ |
-| 2 | API contracts complete | ☐ |
-| 3 | Database schema complete | ☐ |
-| 4 | Error handling defined | ☐ |
-| 5 | Security design complete | ☐ |
-| 6 | **Human Decision**: Design approved | ☐ |
+### Layer 3 — Artifacts (AI-generated, human ignores)
+The AI derives final artifacts from Layer 2. Source code, test scripts, deployment configs, traceability matrices. Safe to delete and regenerate at any time from Layer 2.
 
-### QG5: Implementation → Integration
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | Code compiles/builds | ☐ |
-| 2 | All components implemented | ☐ |
-| 3 | APIs match design | ☐ |
-| 4 | No critical lint errors | ☐ |
-| 5 | No hardcoded secrets | ☐ |
-| 6 | Unit tests pass (≥80% coverage) | ☐ |
-| 7 | **Human Decision**: Code approved | ☐ |
+### Correction Flow
 
-### QG6: Integration → Verification
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | All components integrated | ☐ |
-| 2 | All interfaces tested | ☐ |
-| 3 | Data flows correctly | ☐ |
-| 4 | Integration tests PASS | ☐ |
-| 5 | **Human Decision**: Integration approved | ☐ |
+**Within a process (same directory):**
 
-### QG7: Verification → Validation
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | All MUST requirements verified | ☐ |
-| 2 | Performance meets NFR targets | ☐ |
-| 3 | Security scan passes | ☐ |
-| 4 | No CRITICAL defects open | ☐ |
-| 5 | Requirement coverage ≥ 95% | ☐ |
-| 6 | **Human Decision**: Verification passed | ☐ |
+- Layer 3 wrong → fix Layer 2
+- Layer 2 wrong → clarify Layer 1
 
-### QG8: Validation → Transition
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | All ESSENTIAL stakeholder needs validated | ☐ |
-| 2 | Acceptance criteria pass | ☐ |
-| 3 | No CRITICAL/HIGH defects | ☐ |
-| 4 | Release recommendation is GO/CONDITIONAL | ☐ |
-| 5 | **Human Decision**: ACCEPT for deployment | ☐ |
+**Across processes (backtracking):**
 
-### QG9: Transition → Operation
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | Deployed successfully | ☐ |
-| 2 | Smoke tests pass in production | ☐ |
-| 3 | Monitoring active | ☐ |
-| 4 | Rollback tested | ☐ |
-| 5 | Runbook available | ☐ |
-| 6 | **Human Decision**: System operational | ☐ |
+- Layer 1 wrong → the upstream process that produced this input is flawed → backtrack to that process
+- Apply the same layer correction at the upstream process
+- After fixing, re-propagate forward through all affected downstream processes
 
-### QG10: Operation → Maintenance
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | Operating within SLA | ☐ |
-| 2 | Monitoring complete | ☐ |
-| 3 | Incident response tested | ☐ |
-| 4 | Feedback collection active | ☐ |
-| 5 | **Human Decision**: Operational readiness confirmed | ☐ |
+**Rule:** Always fix at the *earliest* affected process. Never patch a downstream artifact if the root cause is upstream.
 
-### QG-M: Maintenance Release
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | Change request classified | ☐ |
-| 2 | Impact analysis done | ☐ |
-| 3 | Lifecycle phases re-executed | ☐ |
-| 4 | Regression tests pass | ☐ |
-| 5 | Traceability updated | ☐ |
-| 6 | **Human Decision**: Release approved | ☐ |
-
-## 5. Human Input Points
-
-| Phase | Input Required | Effort |
-|-------|---------------|--------|
-| 00 | Vision, stakeholders, needs | 10 min |
-| 10 | User stories, NFRs | 15 min |
-| 20 | Technology preferences | 5 min |
-| 70 | Acceptance criteria | 5 min |
-| 80 | Environment details | 5 min |
-| Gates | Review + approve (×11) | 5 min each |
-
-**Total: ~2 hours** for a complete IEEE 12207-compliant system.
-
-## 6. ID Conventions
-
-| Phase | Pattern | Example |
-|-------|---------|---------|
-| 00 | STK-XXX | STK-001 |
-| 10 | SYS-FUNC-XXX, SYS-PERF-XXX | SYS-FUNC-001 |
-| 20 | ARCH-XXX, ADR-XXX, IF-XXX | ARCH-001 |
-| 30 | DES-XXX | DES-001 |
-| 40 | (source files) | — |
-| 50 | IT-XXX | IT-001 |
-| 60 | VT-XXX | VT-001 |
-| 70 | AT-XXX | AT-001 |
-| 95 | CR-XXX | CR-001 |
-
-## 7. Traceability Chain
+## 4. Directory Convention
 
 ```
-STK-XXX → SYS-XXX → ARCH-XXX → DES-XXX → src/ → IT-XXX → VT-XXX → AT-XXX
+<directory>/
+├── GOVERNANCE.md           ← rules (optional)
+├── <files>                 ← Layer 1 (human intent)
+├── detailed/               ← Layer 2 (AI-generated, human-approved)
+└── generated/              ← Layer 3 (AI-generated, human ignores)
 ```
 
-Every artifact traces forward and backward through this chain.
+### Attribution and Staleness
+
+Every file in `detailed/` MUST begin with an attribution line:
+
+```markdown
+> *AI-generated — implied from [<source>](<relative path>) #<section>*
+```
+
+This attribution IS the traceability mechanism:
+- It links the file to its source (Layer 1 content or GOVERNANCE rule)
+- When the referenced source changes, the file becomes **stale** and MUST be regenerated
+- A file with no attribution has no known source and SHOULD be removed or attributed
+
+## 5. AI Behavior
+
+### Autonomy
+
+**AI MUST ask the human** when encountering:
+- Ambiguous or conflicting inputs
+- High-impact decisions with multiple valid options
+- Trade-offs that depend on business priorities
+
+**AI MUST NOT ask** when:
+- The answer is derivable from existing content
+- Multiple options are equally valid (just pick one)
+- It's a purely technical implementation choice
+
+### Self-Validation
+
+Before presenting any output, the AI verifies:
+- Completeness — all required sections present
+- Consistency — no contradictions with existing content or governance
+- Traceability — traces upstream AND downstream
+
+### Error Handling
+
+When the AI encounters a problem it cannot resolve:
+1. STOP generation
+2. Document the issue
+3. Propose 2–3 solutions
+4. Wait for human decision
+5. Resume after decision
