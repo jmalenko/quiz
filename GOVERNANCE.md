@@ -16,29 +16,29 @@ Every directory follows a 3-layer model:
 
 | Layer | Author | Location |
 |-------|--------|----------|
-| **Layer 1 — Intent** | Human | directory root |
-| **Layer 2 — Detailed Specification** | AI (from Layer 1), Human reviews (iteration with AI), approves and is responsible | `detailed/` |
-| **Layer 3 — Artifacts** | AI (from Layer 2) | `generated/` |
+| **High Level** | Human | directory root |
+| **Detailed** | AI (from High Level), Human reviews (iteration with AI), approves and is responsible | `detailed/` |
+| **Artifacts** | AI (from Detailed) | `generated/` |
 
-### Layer 1 — Human Intent (high-level)
+### High Level (human)
 The human writes key content: decisions, constraints, needs, preferences. Brief, natural language.
 
-### Layer 2 — Detailed Specification (AI-generated, human-reviewed)
-The AI expands Layer 1 into structured, detailed content. The human reviews, corrects, and approves. Once approved, the human is responsible for Layer 2.
+### Detailed (AI-generated, human-reviewed)
+The AI expands High Level into structured, detailed content. The human reviews, corrects, and approves. Once approved, the human is responsible for it.
 
-### Layer 3 — Artifacts (AI-generated, human ignores)
-The AI derives final artifacts from Layer 2. Source code, test scripts, deployment configs, traceability matrices. Safe to delete and regenerate at any time from Layer 2.
+### Artifacts (AI-generated, human ignores)
+The AI derives final artifacts from Detailed. Source code, test scripts, deployment configs, traceability matrices. Safe to delete and regenerate at any time from Detailed.
 
 ### Correction Flow
 
 **Within a process (same directory):**
 
-- Layer 3 wrong → fix Layer 2
-- Layer 2 wrong → clarify Layer 1
+- Artifacts wrong → fix Detailed
+- Detailed wrong → clarify High Level
 
 **Across processes (backtracking):**
 
-- Layer 1 wrong → the upstream process that produced this input is flawed → backtrack to that process
+- High Level wrong → the upstream process that produced this input is flawed → backtrack to that process
 - Apply the same layer correction at the upstream process
 - After fixing, re-propagate forward through all affected downstream processes
 
@@ -49,9 +49,9 @@ The AI derives final artifacts from Layer 2. Source code, test scripts, deployme
 ```
 <directory>/
 ├── GOVERNANCE.md           ← rules (optional)
-├── <files>                 ← Layer 1 (human intent)
-├── detailed/               ← Layer 2 (AI-generated, human-approved)
-└── generated/              ← Layer 3 (AI-generated, human ignores)
+├── <files>                 ← High Level (human intent)
+├── detailed/               ← Detailed (AI-generated, human-approved)
+└── generated/              ← Artifacts (AI-generated, human ignores)
 ```
 
 ### Attribution and Staleness
@@ -63,7 +63,7 @@ Every file in `detailed/` MUST begin with an attribution line:
 ```
 
 This attribution IS the traceability mechanism:
-- It links the file to its source (Layer 1 content or GOVERNANCE rule)
+- It links the file to its source (High Level content or GOVERNANCE rule)
 - When the referenced source changes, the file becomes **stale** and MUST be regenerated
 - A file with no attribution has no known source and SHOULD be removed or attributed
 
