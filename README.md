@@ -1,10 +1,12 @@
-# AI-Generated Software System — Governance Framework
+# Human & AI-Generated Software System — Governance Framework
 
 This repository defines the **complete governance system** for building software that is predominantly AI-generated.
 
 ## Philosophy
 
 > **Humans decide WHAT and WHY. AI decides HOW.**
+
+All rules governing this project are defined in [GOVERNANCE.md](GOVERNANCE.md).
 
 ---
 
