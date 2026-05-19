@@ -1,72 +1,112 @@
 # AI-Generated Software System — Governance Framework
 
-## Purpose
+## Standard: IEEE/IEC 12207:2017
 
-This repository defines the **complete governance system** for building software that is predominantly AI-generated, with only key human decisions as inputs. It establishes the rules, templates, quality gates, and traceability mechanisms that ensure the AI-produced artifacts are correct, consistent, and auditable.
+This repository defines the **complete governance system** for building software that is predominantly AI-generated, following the **IEEE/IEC 12207 Software Lifecycle Processes** standard in a waterfall execution model.
 
 ## Philosophy
 
 > **Humans decide WHAT and WHY. AI decides HOW.**
 
-The human provides:
-- Business intent and constraints
-- Acceptance criteria
-- Go/No-Go decisions at quality gates
+The human provides: business intent, constraints, acceptance criteria, technology preferences, and Go/No-Go decisions at quality gates.
 
-The AI produces:
-- Requirements formalization
-- Functional specifications
-- Architecture & detailed design
-- Source code
-- Tests
-- Deployment artifacts
+The AI produces: formal requirements, architecture, design, source code, integration, verification, validation, deployment, and operational artifacts.
+
+## IEEE 12207 Lifecycle Flow
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    IEEE/IEC 12207 WATERFALL                          │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  00-stakeholder_needs ──► Stakeholder Needs & Requirements (6.4.2)  │
+│         │                                                           │
+│         ▼                                                           │
+│  10-requirements ──────► System/Software Requirements (6.4.3)       │
+│         │                                                           │
+│         ▼                                                           │
+│  20-architecture ──────► Architecture Definition (6.4.4)            │
+│         │                                                           │
+│         ▼                                                           │
+│  30-design ────────────► Design Definition (6.4.5)                  │
+│         │                                                           │
+│         ▼                                                           │
+│  40-implementation ────► Implementation (6.4.6)                     │
+│         │                                                           │
+│         ▼                                                           │
+│  50-integration ───────► Integration (6.4.7)                        │
+│         │                                                           │
+│         ▼                                                           │
+│  60-verification ──────► Verification (6.4.8)                       │
+│         │                                                           │
+│         ▼                                                           │
+│  70-validation ────────► Validation (6.4.9)                         │
+│         │                                                           │
+│         ▼                                                           │
+│  80-transition ────────► Transition (6.4.10)                        │
+│         │                                                           │
+│         ▼                                                           │
+│  90-operation ─────────► Operation (6.4.11)                         │
+│         │                                                           │
+│         ▼                                                           │
+│  95-maintenance ───────► Maintenance (6.4.12)                       │
+│         │                                                           │
+│         └──────── (feeds back into Phase 10-80 as needed) ──────►   │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
 
 ## Lifecycle Phases
 
-| Phase | Folder | Human Input | AI Output |
-|-------|--------|-------------|-----------|
-| Principles | `00-principles/` | Vision, values, constraints | Formalized principles document |
-| Requirements | `10-requirement/` | User stories, acceptance criteria | Structured requirements (SRS) |
-| Functional Spec | `20-functional_specification/` | Review & approve | Functional specification document |
-| Design | `40-design/` | Technology choices, constraints | Architecture & detailed design |
-| Implementation | `50-implementation/` | Review & approve | Source code |
-| Test Implementation | `60-test_implementation/` | Critical test scenarios | Test code & test plans |
-| Deployment | `80-deployment/` | Target environment info | Deployment scripts & configs |
-| Test Execution | `90-test_execution/` | Go/No-Go decision | Test reports & evidence |
+| # | Phase | IEEE 12207 | Folder | Human Input | Quality Gate |
+|---|-------|-----------|--------|-------------|--------------|
+| 00 | Stakeholder Needs | 6.4.2 | `00-stakeholder_needs/` | Vision, stakeholders, needs | QG1 |
+| 10 | Requirements | 6.4.3 | `10-requirements/` | User stories, NFRs | QG2 |
+| 20 | Architecture | 6.4.4 | `20-architecture/` | Technology preferences | QG3 |
+| 30 | Design | 6.4.5 | `30-design/` | Review & approve | QG4 |
+| 40 | Implementation | 6.4.6 | `40-implementation/` | Review & approve | QG5 |
+| 50 | Integration | 6.4.7 | `50-integration/` | Review | QG6 |
+| 60 | Verification | 6.4.8 | `60-verification/` | Review | QG7 |
+| 70 | Validation | 6.4.9 | `70-validation/` | Accept criteria, GO/NO-GO | QG8 |
+| 80 | Transition | 6.4.10 | `80-transition/` | Environment details | QG9 |
+| 90 | Operation | 6.4.11 | `90-operation/` | Review | QG10 |
+| 95 | Maintenance | 6.4.12 | `95-maintenance/` | Change requests | QG-M |
 
-## How to Use This System
+## Quality Gates (11 Gates)
 
-1. **Start at `00-principles/`** — Fill in the `USER_INPUT.md` template with your vision
-2. **Progress through each phase** — The AI generates artifacts; you review at quality gates
-3. **Never skip a quality gate** — Each gate in `GOVERNANCE.md` must be passed before proceeding
-4. **Maintain traceability** — Every artifact must trace back to a requirement
+| Gate | Transition | Key Question |
+|------|-----------|--------------|
+| QG1 | 00 → 10 | Are stakeholder needs clear and complete? |
+| QG2 | 10 → 20 | Are requirements testable and traceable? |
+| QG3 | 20 → 30 | Is the architecture sound and justified? |
+| QG4 | 30 → 40 | Is the design implementable? |
+| QG5 | 40 → 50 | Does the code match the design? |
+| QG6 | 50 → 60 | Are components successfully integrated? |
+| QG7 | 60 → 70 | Does the system meet requirements? (Verification) |
+| QG8 | 70 → 80 | Does the system satisfy stakeholder needs? (Validation) |
+| QG9 | 80 → 90 | Is the system operational? |
+| QG10 | 90 → 95 | Is the system operating within SLA? |
+| QG-M | 95 → reentry | Is the maintenance release ready? |
 
 ## Key Documents
 
 | Document | Purpose |
 |----------|---------|
-| [GOVERNANCE.md](GOVERNANCE.md) | Process rules, roles, quality gates |
-| [00-principles/USER_INPUT.md](00-principles/USER_INPUT.md) | Starting point — your vision |
+| [GOVERNANCE.md](GOVERNANCE.md) | Process rules, roles, all quality gates |
+| [AI_GUIDELINES.md](AI_GUIDELINES.md) | AI behavior rules and prompt templates |
 | [TRACEABILITY.md](TRACEABILITY.md) | Cross-phase traceability matrix |
 | [DECISION_LOG.md](DECISION_LOG.md) | Record of all human decisions |
+| [QUICKSTART.md](QUICKSTART.md) | Step-by-step guide |
 
 ## Getting Started
 
 ```bash
-# 1. Fill in your project vision
-#    Edit: 00-principles/USER_INPUT.md
+# 1. Fill in your stakeholder needs
+#    Edit: 00-stakeholder_needs/USER_INPUT.md
 
-# 2. The AI will generate all downstream artifacts
-#    following the governance rules in GOVERNANCE.md
+# 2. The AI generates all downstream artifacts
+#    following GOVERNANCE.md rules
 
-# 3. Review and approve at each quality gate
+# 3. Review and approve at each quality gate (QG1-QG10)
 #    Record decisions in DECISION_LOG.md
 ```
-
-## Governance Principles
-
-1. **Traceability** — Every artifact traces to a requirement
-2. **Minimalism** — Human input is minimal but decisive
-3. **Quality Gates** — No phase proceeds without explicit approval
-4. **Transparency** — All AI decisions are documented and justified
-5. **Reproducibility** — Given the same inputs, the AI produces consistent outputs

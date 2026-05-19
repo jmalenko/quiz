@@ -1,150 +1,82 @@
-# 🚀 Quick Start Guide
+# 🚀 Quick Start — IEEE/IEC 12207 Waterfall
 
-## How to Build a Software System with This Governance Framework
+## Build a Complete System in 11 Steps
 
-This guide walks you through the minimal steps to go from idea to deployed software.
-
----
-
-## Step 1: Define Your Vision (5-10 minutes)
-
-📄 **Edit**: `00-principles/USER_INPUT.md`
-
-Fill in:
-- ✍️ Project name
-- ✍️ Vision statement (1-3 sentences)
-- ✍️ Target users
-- ✍️ Success criteria
-- ✍️ Constraints
-- ✍️ Scope (in/out)
-
-**That's it!** The AI takes over from here.
+```
+Step 1  → 00-stakeholder_needs  (YOU fill in vision)
+Step 2  → 10-requirements       (YOU provide stories)
+Step 3  → 20-architecture       (YOU choose technology)
+Step 4  → 30-design             (AI generates, you review)
+Step 5  → 40-implementation     (AI generates, you review)
+Step 6  → 50-integration        (AI tests interfaces)
+Step 7  → 60-verification       (AI verifies vs requirements)
+Step 8  → 70-validation         (YOU accept/reject)
+Step 9  → 80-transition         (YOU provide environment)
+Step 10 → 90-operation          (System is live)
+Step 11 → 95-maintenance        (Ongoing evolution)
+```
 
 ---
 
-## Step 2: AI Generates Principles → You Approve
+## Step 1: Stakeholder Needs (10 min) 👤
+📄 Edit `00-stakeholder_needs/USER_INPUT.md`
+🚦 QG1: AI formalizes needs → Approve
 
-🤖 **AI reads** your `USER_INPUT.md` and generates:
-- `00-principles/PRINCIPLES.md`
+## Step 2: Requirements (15 min) 👤
+📄 Edit `10-requirements/USER_INPUT.md`
+🚦 QG2: AI generates SRS → Approve
 
-👤 **You review** and pass Quality Gate 1 (QG1)
+## Step 3: Architecture (5 min) 👤
+📄 Edit `20-architecture/USER_INPUT.md`
+🚦 QG3: AI generates architecture → Approve
 
----
+## Step 4: Design (5 min) 👤
+🤖 AI generates detailed design
+🚦 QG4: Review design → Approve
 
-## Step 3: Define User Stories (10-20 minutes)
+## Step 5: Implementation (5 min) 👤
+🤖 AI generates source code
+🚦 QG5: Review code → Approve
 
-📄 **Edit**: `10-requirement/USER_INPUT.md`
+## Step 6: Integration (5 min) 👤
+🤖 AI integrates + tests interfaces
+🚦 QG6: Integration tests pass → Approve
 
-Fill in:
-- ✍️ User stories (As a... I want... So that...)
-- ✍️ Acceptance criteria (Given/When/Then)
-- ✍️ Business rules
-- ✍️ Data entities
+## Step 7: Verification (5 min) 👤
+🤖 AI verifies system against requirements
+🚦 QG7: System tests pass → Approve
 
----
+## Step 8: Validation (5 min) 👤
+📄 Edit `70-validation/USER_INPUT.md`
+🤖 AI runs acceptance tests
+🚦 QG8: **YOU decide GO/NO-GO**
 
-## Step 4: AI Generates Requirements → You Approve
+## Step 9: Transition (5 min) 👤
+📄 Edit `80-transition/USER_INPUT.md`
+🤖 AI generates deployment artifacts
+🚦 QG9: System deployed → Confirm
 
-🤖 **AI generates**: `10-requirement/REQUIREMENTS.md`
-👤 **You review** and pass QG2
+## Step 10: Operation 👤
+🤖 System running, monitoring active
+🚦 QG10: SLA met → Confirm
 
----
-
-## Step 5: AI Generates Functional Spec → You Approve
-
-🤖 **AI generates**: Functional specs, use cases, data model
-👤 **You review** and pass QG3
-
----
-
-## Step 6: Provide Technology Preferences (5 minutes)
-
-📄 **Edit**: `40-design/USER_INPUT.md`
-
-Fill in:
-- ✍️ Language preference
-- ✍️ Framework preference
-- ✍️ Database preference
-- ✍️ Architecture style preference
-
----
-
-## Step 7: AI Generates Design → You Approve
-
-🤖 **AI generates**: Architecture, API design, data design, ADRs
-👤 **You review** and pass QG4
+## Step 11: Maintenance (ongoing)
+🔄 Changes feed back into the lifecycle
 
 ---
 
-## Step 8: AI Generates Code → You Review
+## Your Total Effort: ~2 hours
 
-🤖 **AI generates**: Complete source code in `50-implementation/src/`
-👤 **You review** and pass QG5
-
----
-
-## Step 9: Define Critical Test Scenarios (5 minutes)
-
-📄 **Edit**: `60-test_implementation/USER_INPUT.md`
-
-Fill in:
-- ✍️ Critical scenarios to test
-- ✍️ Coverage expectations
+| Phase | Your Action | Time |
+|-------|------------|------|
+| 00 | Fill stakeholder needs | 10 min |
+| 10 | Write user stories | 15 min |
+| 20 | Technology preferences | 5 min |
+| 70 | Acceptance criteria | 5 min |
+| 80 | Environment details | 5 min |
+| Gates ×11 | Review + approve | 55 min |
+| **Total** | | **~1.5-2 hours** |
 
 ---
 
-## Step 10: AI Generates Tests → You Approve
-
-🤖 **AI generates**: Test plan, test cases, test code
-👤 **You review** and pass QG6
-
----
-
-## Step 11: Provide Deployment Details (5 minutes)
-
-📄 **Edit**: `80-deployment/USER_INPUT.md`
-
-Fill in:
-- ✍️ Target environment
-- ✍️ CI/CD preferences
-
----
-
-## Step 12: AI Generates Deployment → You Approve
-
-🤖 **AI generates**: Dockerfiles, CI/CD pipelines, IaC, runbooks
-👤 **You review** and pass QG7
-
----
-
-## Step 13: AI Executes Tests → You Decide
-
-🤖 **AI runs**: All tests, generates reports
-👤 **You decide**: GO / NO-GO for release (QG8)
-
----
-
-## Summary: Your Total Input
-
-| Step | Time | What You Do |
-|------|------|-------------|
-| Vision | 5-10 min | Fill template |
-| User Stories | 10-20 min | Write stories |
-| Tech Preferences | 5 min | Fill template |
-| Test Scenarios | 5 min | List critical cases |
-| Deployment Info | 5 min | Fill template |
-| **Quality Gates** | **5 min each** | **Review & approve** |
-
-**Total human effort: ~1-2 hours** for a complete software system.
-
----
-
-## Key Files to Remember
-
-| File | When to Use |
-|------|-------------|
-| `00-principles/USER_INPUT.md` | START HERE |
-| `GOVERNANCE.md` | Understand the rules |
-| `AI_GUIDELINES.md` | How the AI behaves |
-| `DECISION_LOG.md` | Record your decisions |
-| `TRACEABILITY.md` | Verify nothing is missed |
+## Start Here → `00-stakeholder_needs/USER_INPUT.md`

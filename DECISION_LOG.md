@@ -1,44 +1,32 @@
 # Decision Log
 
 ## Purpose
-Record all human decisions made during the project lifecycle. This provides an audit trail and helps understand why certain paths were chosen.
-
-## How to Use
-- Every quality gate decision is recorded here
-- Every time the human overrides an AI recommendation, it's recorded here
-- Every scope change or requirement modification is recorded here
-
----
-
-## Decision Record Template
-
-```
-### DEC-XXX: [Decision Title]
-- **Date**: YYYY-MM-DD
-- **Phase**: [00/10/20/40/50/60/80/90]
-- **Gate**: [QG1-QG8 or N/A]
-- **Decision**: [What was decided]
-- **Alternatives**: [What other options existed]
-- **Rationale**: [Why this decision was made]
-- **Impact**: [What downstream artifacts are affected]
-- **Decided by**: [Name/Role]
-```
+Record all human decisions made during the project lifecycle.
 
 ---
 
 ## Decisions
 
-<!-- Decisions will be added here as the project progresses -->
-
 ### DEC-001: Project Initiation
-- **Date**: 
-- **Phase**: 00-principles
-- **Gate**: N/A
+- **Date**: 2025-05-19
+- **Phase**: 00
 - **Decision**: Project initiated with AI-generated governance framework
-- **Alternatives**: Manual documentation, traditional SDLC
 - **Rationale**: Maximize AI generation with minimal human input
-- **Impact**: All downstream phases follow AI-generation model
-- **Decided by**: 
+- **Decided by**: Product Owner
+
+---
+
+### DEC-002: Process Model — IEEE/IEC 12207 Waterfall
+- **Date**: 2025-05-19
+- **Phase**: 00
+- **Decision**: Adopted IEEE/IEC 12207:2017 waterfall model with 11 phases
+- **Alternatives**:
+  - V-Model (separate test levels) — rejected
+  - Royce Classic (7 phases) — too simplistic
+  - DOD-STD-2167A — too military-specific
+- **Rationale**: International standard, comprehensive lifecycle coverage including operation and maintenance, clear process IDs (6.4.X)
+- **Impact**: 11 sequential phases, 11 quality gates, maintenance feeds back into lifecycle
+- **Decided by**: Product Owner
 
 ---
 

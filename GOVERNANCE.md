@@ -1,155 +1,169 @@
-# Governance Rules & Quality Gates
+# Governance Rules & Quality Gates — IEEE/IEC 12207 Waterfall
 
-## 1. Roles
+## 1. Standard Alignment
 
-| Role | Responsibility | Actions |
-|------|---------------|---------|
-| **Product Owner** (Human) | Defines WHAT the system does | Provides user stories, acceptance criteria, approves gates |
-| **AI Engineer** (AI) | Defines HOW the system is built | Generates all technical artifacts |
-| **Reviewer** (Human) | Validates AI output | Reviews at quality gates, records decisions |
+This governance framework implements **IEEE/IEC 12207:2017 — Systems and software engineering — Software life cycle processes** in a sequential (waterfall) execution model with 11 phases and 11 quality gates.
 
-## 2. Process Flow
+## 2. Roles
+
+| Role | Responsibility |
+|------|---------------|
+| **Acquirer/Product Owner** (Human) | Defines needs, approves gates, final GO/NO-GO |
+| **AI Engineer** (AI) | Generates all technical artifacts per phase |
+| **Reviewer** (Human) | Reviews AI output at quality gates |
+
+## 3. Process Flow
 
 ```
-┌─────────────┐     ┌─────────────┐     ┌─────────────────────┐     ┌──────────┐
-│  PRINCIPLES │────▶│ REQUIREMENTS│────▶│ FUNCTIONAL SPEC     │────▶│  DESIGN  │
-│  (00)       │ QG1 │  (10)       │ QG2 │  (20)               │ QG3 │  (40)    │
-└─────────────┘     └─────────────┘     └─────────────────────┘     └──────────┘
-                                                                          │
-                                                                         QG4
-                                                                          │
-┌─────────────┐     ┌─────────────┐     ┌─────────────────────┐     ┌──────────┐
-│  TEST EXEC  │◀────│  DEPLOYMENT │◀────│ TEST IMPLEMENTATION │◀────│  IMPL    │
-│  (90)       │ QG7 │  (80)       │ QG6 │  (60)               │ QG5 │  (50)    │
-└─────────────┘     └─────────────┘     └─────────────────────┘     └──────────┘
+00 Stakeholder Needs ──QG1──► 10 Requirements ──QG2──► 20 Architecture
+──QG3──► 30 Design ──QG4──► 40 Implementation ──QG5──► 50 Integration
+──QG6──► 60 Verification ──QG7──► 70 Validation ──QG8──► 80 Transition
+──QG9──► 90 Operation ──QG10──► 95 Maintenance ──QG-M──► (reentry)
 ```
 
-## 3. Quality Gates
+## 4. Quality Gates
 
-### QG1: Principles → Requirements
-| Criterion | Check |
-|-----------|-------|
-| Vision statement is clear and unambiguous | ☐ |
-| Constraints are explicitly stated | ☐ |
-| Success criteria are measurable | ☐ |
-| Stakeholders are identified | ☐ |
-| **Human Decision**: Approve principles | ☐ |
+### QG1: Stakeholder Needs → Requirements
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | All stakeholders identified | ☐ |
+| 2 | Each stakeholder has documented needs | ☐ |
+| 3 | Success criteria are measurable | ☐ |
+| 4 | System boundaries clear | ☐ |
+| 5 | Constraints stated | ☐ |
+| 6 | **Human Decision**: Needs approved | ☐ |
 
-### QG2: Requirements → Functional Specification
-| Criterion | Check |
-|-----------|-------|
-| All user stories have acceptance criteria | ☐ |
-| Requirements are uniquely identified (REQ-XXX) | ☐ |
-| No conflicting requirements | ☐ |
-| Priority is assigned to each requirement | ☐ |
-| **Human Decision**: Requirements complete | ☐ |
+### QG2: Requirements → Architecture
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | All needs traceable to requirements | ☐ |
+| 2 | Requirements uniquely identified | ☐ |
+| 3 | Each requirement testable | ☐ |
+| 4 | No conflicts | ☐ |
+| 5 | Priority assigned (MoSCoW) | ☐ |
+| 6 | Requirements baselined | ☐ |
+| 7 | **Human Decision**: Requirements approved | ☐ |
 
-### QG3: Functional Specification → Design
-| Criterion | Check |
-|-----------|-------|
-| All requirements are covered in the spec | ☐ |
-| Functional behaviors are testable | ☐ |
-| Edge cases are identified | ☐ |
-| Traceability to requirements is documented | ☐ |
-| **Human Decision**: Spec approved | ☐ |
+### QG3: Architecture → Design
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | All requirements allocated to components | ☐ |
+| 2 | Components have single responsibilities | ☐ |
+| 3 | All interfaces defined | ☐ |
+| 4 | Technology decisions justified (ADRs) | ☐ |
+| 5 | Quality attributes addressed | ☐ |
+| 6 | Deployment view feasible | ☐ |
+| 7 | **Human Decision**: Architecture approved | ☐ |
 
 ### QG4: Design → Implementation
-| Criterion | Check |
-|-----------|-------|
-| Architecture covers all functional specifications | ☐ |
-| Technology choices are justified | ☐ |
-| Interfaces are clearly defined | ☐ |
-| Non-functional requirements are addressed | ☐ |
-| **Human Decision**: Design approved | ☐ |
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | Every component has internal design | ☐ |
+| 2 | API contracts complete | ☐ |
+| 3 | Database schema complete | ☐ |
+| 4 | Error handling defined | ☐ |
+| 5 | Security design complete | ☐ |
+| 6 | **Human Decision**: Design approved | ☐ |
 
-### QG5: Implementation → Test Implementation
-| Criterion | Check |
-|-----------|-------|
-| Code compiles/builds without errors | ☐ |
-| Code follows design patterns from design phase | ☐ |
-| All interfaces are implemented | ☐ |
-| No critical static analysis findings | ☐ |
-| **Human Decision**: Code review passed | ☐ |
+### QG5: Implementation → Integration
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | Code compiles/builds | ☐ |
+| 2 | All components implemented | ☐ |
+| 3 | APIs match design | ☐ |
+| 4 | No critical lint errors | ☐ |
+| 5 | No hardcoded secrets | ☐ |
+| 6 | Unit tests pass (≥80% coverage) | ☐ |
+| 7 | **Human Decision**: Code approved | ☐ |
 
-### QG6: Test Implementation → Deployment
-| Criterion | Check |
-|-----------|-------|
-| Test cases cover all acceptance criteria | ☐ |
-| Test cases are traceable to requirements | ☐ |
-| Test infrastructure is defined | ☐ |
-| **Human Decision**: Test plan approved | ☐ |
+### QG6: Integration → Verification
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | All components integrated | ☐ |
+| 2 | All interfaces tested | ☐ |
+| 3 | Data flows correctly | ☐ |
+| 4 | Integration tests PASS | ☐ |
+| 5 | **Human Decision**: Integration approved | ☐ |
 
-### QG7: Deployment → Test Execution
-| Criterion | Check |
-|-----------|-------|
-| Deployment scripts execute successfully | ☐ |
-| Environment is provisioned correctly | ☐ |
-| Rollback procedure is defined | ☐ |
-| **Human Decision**: Ready for test execution | ☐ |
+### QG7: Verification → Validation
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | All MUST requirements verified | ☐ |
+| 2 | Performance meets NFR targets | ☐ |
+| 3 | Security scan passes | ☐ |
+| 4 | No CRITICAL defects open | ☐ |
+| 5 | Requirement coverage ≥ 95% | ☐ |
+| 6 | **Human Decision**: Verification passed | ☐ |
 
-### QG8: Test Execution → Release (Final)
-| Criterion | Check |
-|-----------|-------|
-| All critical tests pass | ☐ |
-| Test coverage meets threshold (≥80%) | ☐ |
-| No open critical/high defects | ☐ |
-| Performance meets acceptance criteria | ☐ |
-| **Human Decision**: GO for release | ☐ |
+### QG8: Validation → Transition
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | All ESSENTIAL stakeholder needs validated | ☐ |
+| 2 | Acceptance criteria pass | ☐ |
+| 3 | No CRITICAL/HIGH defects | ☐ |
+| 4 | Release recommendation is GO/CONDITIONAL | ☐ |
+| 5 | **Human Decision**: ACCEPT for deployment | ☐ |
 
-## 4. Rules for AI Generation
+### QG9: Transition → Operation
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | Deployed successfully | ☐ |
+| 2 | Smoke tests pass in production | ☐ |
+| 3 | Monitoring active | ☐ |
+| 4 | Rollback tested | ☐ |
+| 5 | Runbook available | ☐ |
+| 6 | **Human Decision**: System operational | ☐ |
 
-### 4.1 General Rules
-1. **Never generate without context** — AI must have the previous phase's approved output as input
-2. **Always justify decisions** — Every technical decision must include a rationale
-3. **Follow established patterns** — Consistency over novelty
-4. **Fail safe** — When uncertain, ask the human rather than assume
-5. **Document assumptions** — All assumptions must be explicitly stated
+### QG10: Operation → Maintenance
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | Operating within SLA | ☐ |
+| 2 | Monitoring complete | ☐ |
+| 3 | Incident response tested | ☐ |
+| 4 | Feedback collection active | ☐ |
+| 5 | **Human Decision**: Operational readiness confirmed | ☐ |
 
-### 4.2 Artifact Naming Convention
+### QG-M: Maintenance Release
+| # | Criterion | Check |
+|---|-----------|-------|
+| 1 | Change request classified | ☐ |
+| 2 | Impact analysis done | ☐ |
+| 3 | Lifecycle phases re-executed | ☐ |
+| 4 | Regression tests pass | ☐ |
+| 5 | Traceability updated | ☐ |
+| 6 | **Human Decision**: Release approved | ☐ |
+
+## 5. Human Input Points
+
+| Phase | Input Required | Effort |
+|-------|---------------|--------|
+| 00 | Vision, stakeholders, needs | 10 min |
+| 10 | User stories, NFRs | 15 min |
+| 20 | Technology preferences | 5 min |
+| 70 | Acceptance criteria | 5 min |
+| 80 | Environment details | 5 min |
+| Gates | Review + approve (×11) | 5 min each |
+
+**Total: ~2 hours** for a complete IEEE 12207-compliant system.
+
+## 6. ID Conventions
+
+| Phase | Pattern | Example |
+|-------|---------|---------|
+| 00 | STK-XXX | STK-001 |
+| 10 | SYS-FUNC-XXX, SYS-PERF-XXX | SYS-FUNC-001 |
+| 20 | ARCH-XXX, ADR-XXX, IF-XXX | ARCH-001 |
+| 30 | DES-XXX | DES-001 |
+| 40 | (source files) | — |
+| 50 | IT-XXX | IT-001 |
+| 60 | VT-XXX | VT-001 |
+| 70 | AT-XXX | AT-001 |
+| 95 | CR-XXX | CR-001 |
+
+## 7. Traceability Chain
+
 ```
-<phase-number>-<artifact-type>-<name>.<extension>
+STK-XXX → SYS-XXX → ARCH-XXX → DES-XXX → src/ → IT-XXX → VT-XXX → AT-XXX
 ```
-Examples:
-- `10-REQ-user-authentication.md`
-- `40-DES-system-architecture.md`
-- `50-SRC-auth-service.py`
 
-### 4.3 Change Management
-- Any change to an approved artifact requires re-approval
-- Changes must be documented in the DECISION_LOG.md
-- Downstream artifacts must be assessed for impact
-- Traceability matrix must be updated
-
-## 5. Human Input Points (Minimal but Critical)
-
-| Phase | Required Human Input | Format |
-|-------|---------------------|--------|
-| Principles | Vision, values, constraints | `USER_INPUT.md` |
-| Requirements | User stories + acceptance criteria | `USER_INPUT.md` |
-| Functional Spec | Review & approve/reject | Quality Gate checklist |
-| Design | Technology preferences, constraints | `USER_INPUT.md` |
-| Implementation | Review & approve/reject | Quality Gate checklist |
-| Test Implementation | Critical scenarios to cover | `USER_INPUT.md` |
-| Deployment | Target environment details | `USER_INPUT.md` |
-| Test Execution | Go/No-Go decision | Quality Gate checklist |
-
-## 6. Escalation & Exception Handling
-
-| Situation | Action |
-|-----------|--------|
-| AI cannot resolve ambiguity | Escalate to human with options |
-| Quality gate fails | Document findings, iterate until pass |
-| Requirement conflict detected | Stop and present conflict to human |
-| Technology constraint prevents implementation | Propose alternatives to human |
-| Test failure in critical path | Block release, escalate to human |
-
-## 7. Metrics & KPIs
-
-| Metric | Target | Measured At |
-|--------|--------|-------------|
-| Requirements coverage | 100% | QG3 |
-| Test coverage | ≥ 80% | QG8 |
-| Defect density | < 5 per KLOC | QG8 |
-| Human interventions per phase | ≤ 3 | All phases |
-| Gate pass rate (first attempt) | ≥ 70% | All gates |
-| Traceability completeness | 100% | All phases |
+Every artifact traces forward and backward through this chain.
