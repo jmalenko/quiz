@@ -24,3 +24,10 @@ AI expands into:
 - Class/interface definitions (C4 Level 4)
 - API specification (endpoints, DTOs, status codes)
 - Data model (YAML schema for questions file)
+
+## Generated Artifacts
+
+Design produces **specifications**, not source code:
+- OpenAPI spec (machine-readable API contract)
+
+Source code is generated in Process 07 (Implementation) from these specifications.

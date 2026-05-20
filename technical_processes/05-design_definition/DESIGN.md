@@ -1,6 +1,6 @@
 # Design Definition — High Level
 
-## Backend Components (C4 Level 3)
+## Backend Components
 
 | Component | Layer | Responsibility |
 |-----------|-------|---------------|
@@ -9,7 +9,7 @@
 | QuestionRepository | Repository | Reads and parses YAML file |
 | Question | Model | Domain object: text, options, correct answer |
 
-## Frontend Components (C4 Level 3)
+## Frontend Components
 
 | Component | Responsibility |
 |-----------|---------------|
