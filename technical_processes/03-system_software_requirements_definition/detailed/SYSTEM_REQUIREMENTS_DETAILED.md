@@ -31,7 +31,7 @@ SR-08: The system shall be accessible via a web browser without installation.\
 Source: C-01
 
 SR-09: The system shall respond to user actions within 200ms (excluding network latency).\
-Source: SYSTEM_REQUIREMENTS.md #Additional Non-Functional Requirements
+Source: SYSTEM_REQUIREMENTS.md #Non-Functional Requirements
 
 SR-10: The system shall work without user authentication.\
 Source: A-02

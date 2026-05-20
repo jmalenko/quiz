@@ -8,6 +8,7 @@ All traceable items use a prefixed ID with hierarchical numbering.
 |--------|---------|--------|---------|
 | A | Assumption | A-{nn} | A-01 |
 | AC | Acceptance Criterion | AC-{story}.{n} | AC-01.1 |
+| ADR | Architecture Decision Record | ADR-{nn} | ADR-01 |
 | C | Constraint | C-{nn} | C-01 |
 | SR | System Requirement | SR-{nn} | SR-01 |
 | TC | Test Case | TC-{AC ref} | TC-01.1 |
