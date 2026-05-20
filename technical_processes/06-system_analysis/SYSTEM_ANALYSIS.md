@@ -1,6 +1,6 @@
 # System Analysis — High Level
 
-## Risk Assessment (ISO 31000)
+## Risk Assessment
 
 | ID | Risk | Likelihood | Impact | Treatment |
 |----|------|-----------|--------|-----------|
