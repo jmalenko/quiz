@@ -1,5 +1,9 @@
 # Governance — Detailed Layer
 
+## Process
+
+The full list of processes is in the [README](../README.md#lifecycle).
+
 ## Identifier Convention
 
 All traceable items use a prefixed ID with hierarchical numbering.
@@ -16,11 +20,11 @@ All traceable items use a prefixed ID with hierarchical numbering.
 
 ### Rules
 
-- IDs are immutable once assigned. Deleted items leave a gap; IDs are never reused.
-- Hierarchical IDs (AC-01.1) reference their parent by prefix (US-01).
-- Cross-references use the full ID (e.g., "verifies AC-01.1").
 - When referring to a process, use the format: **process _NN_ _Name_**. Example: "process 04 Architecture Definition".
-- The full list of processes is in the [README](../README.md#lifecycle).
+- Identifiers:
+  - IDs are immutable once assigned. Deleted items leave a gap; IDs are never reused.
+  - Hierarchical IDs (AC-01.1) reference their parent by prefix (US-01).
+  - Cross-references use the full ID (e.g., "verifies AC-01.1").
 
 ### Traceability
 
