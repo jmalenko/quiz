@@ -27,4 +27,4 @@ Source: AC-{xx.y} | C-{nn} | A-{nn}
 
 ## Verification
 
-Deferred to Process 09 (Verification).
+Deferred to process 09 Verification.

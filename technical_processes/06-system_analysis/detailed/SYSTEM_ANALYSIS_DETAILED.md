@@ -1,6 +1,6 @@
 # System Analysis — Detailed
 
-> *AI-generated — implied from [../SYSTEM_ANALYSIS.md](../SYSTEM_ANALYSIS.md) and Process 03/05 outputs*
+> *AI-generated — implied from [../SYSTEM_ANALYSIS.md](../SYSTEM_ANALYSIS.md) and process 03 System Requirements Definition / process 05 Design Definition outputs*
 
 ## Requirements Traceability Matrix
 

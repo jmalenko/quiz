@@ -64,7 +64,7 @@ The system must be fully automated end-to-end. The engineer enters only high-lev
 | Infrastructure | Infrastructure-as-code |
 | CI/CD | Automated build/test/deploy pipeline |
 
-Technology choices are deferred to Architecture Definition (Process 04).
+Technology choices are deferred to process 04 Architecture Definition.
 
 ## 5. Constraints and Assumptions — Detailed
 

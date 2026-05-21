@@ -22,10 +22,10 @@ AI expands into:
 
 | Level | Scope | Defined in |
 |-------|-------|-----------|
-| 1 — Context | System boundary + actors | [04 Architecture — High Level](../04-architecture_definition/ARCHITECTURE.md) |
-| 2 — Container | Major building blocks | [04 Architecture — Detailed](../04-architecture_definition/detailed/ARCHITECTURE_DETAILED.md) |
-| 3 — Component | Internal structure per container | [05 Design](../05-design_definition/DESIGN.md) |
-| 4 — Code | Classes, interfaces, source code | [07 Implementation](../07-implementation/) |
+| 1 — Context | System boundary + actors | [process 04 Architecture Definition — High Level](../04-architecture_definition/ARCHITECTURE.md) |
+| 2 — Container | Major building blocks | [process 04 Architecture Definition — Detailed](../04-architecture_definition/detailed/ARCHITECTURE_DETAILED.md) |
+| 3 — Component | Internal structure per container | [process 05 Design Definition](../05-design_definition/DESIGN.md) |
+| 4 — Code | Classes, interfaces, source code | [process 07 Implementation](../07-implementation/) |
 
 ## ADR Format
 

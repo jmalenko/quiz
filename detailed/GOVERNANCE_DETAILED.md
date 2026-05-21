@@ -19,6 +19,7 @@ All traceable items use a prefixed ID with hierarchical numbering.
 - IDs are immutable once assigned. Deleted items leave a gap; IDs are never reused.
 - Hierarchical IDs (AC-01.1) reference their parent by prefix (US-01).
 - Cross-references use the full ID (e.g., "verifies AC-01.1").
+- When referring to a process, use the format: **process _NN_ _Name_**. Example: "process 04 Architecture Definition".
 
 ### Traceability
 

@@ -30,4 +30,4 @@ AI expands into:
 Design produces **specifications**, not source code:
 - OpenAPI spec (machine-readable API contract)
 
-Source code is generated in Process 07 (Implementation) from these specifications.
+Source code is generated in process 07 Implementation from these specifications.
