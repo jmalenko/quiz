@@ -1,0 +1,56 @@
+.app {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: sans-serif;
+}
+
+.question-card h2 {
+  margin-bottom: 1rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.answer-button {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.answer-button:hover:not(:disabled) {
+  background: #f0f0f0;
+}
+
+.answer-button:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.feedback {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.feedback.correct {
+  background: #d4edda;
+  color: #155724;
+}
+
+.feedback.wrong {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.score-summary {
+  text-align: center;
+  margin-top: 2rem;
+}

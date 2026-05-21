@@ -1,0 +1,26 @@
+questions:
+  - id: 1
+    text: "What is the capital of France?"
+    options:
+      - "London"
+      - "Paris"
+      - "Berlin"
+      - "Madrid"
+    correctOption: 1
+
+  - id: 2
+    text: "What is 2 + 2?"
+    options:
+      - "3"
+      - "4"
+      - "5"
+    correctOption: 1
+
+  - id: 3
+    text: "Which planet is known as the Red Planet?"
+    options:
+      - "Venus"
+      - "Jupiter"
+      - "Mars"
+      - "Saturn"
+    correctOption: 2
