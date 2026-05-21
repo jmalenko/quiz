@@ -8,14 +8,6 @@ Actors:
 
 The system has no external dependencies or integrations.
 
-## C4 Level 2 — Containers
-
-| Container | Technology | Responsibility |
-|-----------|-----------|---------------|
-| Frontend | React (plain HTML) | Quiz UI — displays questions, captures answers, shows feedback |
-| Backend | Java + Spring Boot | REST API — serves questions, evaluates answers |
-| Questions File | YAML | Static question storage |
-
 ## Technology Decisions
 
 ### ADR-01: Backend framework

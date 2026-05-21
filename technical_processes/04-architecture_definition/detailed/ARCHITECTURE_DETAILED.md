@@ -2,6 +2,14 @@
 
 > *AI-generated — implied from [../ARCHITECTURE.md](../ARCHITECTURE.md)*
 
+## C4 Level 2 — Containers
+
+| Container | Technology | Responsibility |
+|-----------|-----------|---------------|
+| Frontend | React (plain HTML) | Quiz UI — displays questions, captures answers, shows feedback |
+| Backend | Java + Spring Boot | REST API — serves questions, evaluates answers |
+| Questions File | YAML | Static question storage |
+
 ## C4 Level 2 — Container Interactions
 
 ```

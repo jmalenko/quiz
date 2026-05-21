@@ -7,13 +7,13 @@ This process follows the **C4 Model** (Simon Brown) for architecture description
 ## High Level Format
 
 Human provides:
-- System context (actors, external systems)
-- Container-level architecture (major building blocks and their responsibilities)
+- System context (C4 Level 1 — actors, external systems)
 - Technology decisions (ADRs)
 
 ## Detailed Format
 
 AI expands into:
+- C4 Level 2 — Container definitions (building blocks, technologies, responsibilities)
 - C4 Container interactions (diagram + communication description)
 - ADR details (context, options considered, decision, consequences)
 - Deployment topology
@@ -22,10 +22,10 @@ AI expands into:
 
 | Level | Scope | Defined in |
 |-------|-------|-----------|
-| 1 — Context | System boundary + actors | High Level |
-| 2 — Container | Major building blocks | High Level + Detailed |
-| 3 — Component | Internal structure per container | Process 05 (Design) |
-| 4 — Code | Classes, interfaces | Process 05 (Design) |
+| 1 — Context | System boundary + actors | [04 Architecture — High Level](../04-architecture_definition/ARCHITECTURE.md) |
+| 2 — Container | Major building blocks | [04 Architecture — Detailed](../04-architecture_definition/detailed/ARCHITECTURE_DETAILED.md) |
+| 3 — Component | Internal structure per container | [05 Design](../05-design_definition/DESIGN.md) |
+| 4 — Code | Classes, interfaces, source code | [07 Implementation](../07-implementation/) |
 
 ## ADR Format
 
