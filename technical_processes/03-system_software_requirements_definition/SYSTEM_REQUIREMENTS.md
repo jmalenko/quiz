@@ -2,7 +2,7 @@
 
 ## Functional Requirements
 
-Derived from acceptance criteria in detailed layer.
+Derived from acceptance criteria.
 
 ## Non-Functional Requirements
 
