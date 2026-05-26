@@ -42,7 +42,7 @@ containers/backend/
 ### Dependencies
 - `spring-boot-starter-web` — REST API
 - `snakeyaml` — YAML parsing
-- `spring-boot-starter-test` — test support
+- `spring-boot-starter-test` — JUnit 5 + Mockito + Spring test context
 - `spring-boot-devtools` — dev convenience (optional)
 
 ### Plugins
@@ -119,6 +119,32 @@ COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
+
+## Unit Test Specifications
+
+### QuizControllerTest.java
+- Framework: JUnit 5 + `@WebMvcTest` (Spring MVC slice, no full context)
+- Mocks: `QuestionService` via `@MockBean`
+- Tests:
+  - `GET /api/questions` returns 200 with a list of `QuestionDto`
+  - `POST /api/answers` with valid payload returns 200 with `AnswerResponse`
+  - `POST /api/answers` with unknown question ID returns 404
+
+### QuestionServiceTest.java
+- Framework: JUnit 5, plain unit test (no Spring context)
+- Mocks: `QuestionRepository` via Mockito `@Mock`
+- Tests:
+  - `getAllQuestions()` maps `Question` to `QuestionDto` and strips `correctOption`
+  - `checkAnswer()` returns correct=true when `selectedOption` matches `correctOption`
+  - `checkAnswer()` returns correct=false when `selectedOption` does not match
+  - `checkAnswer()` throws `ResponseStatusException(404)` for unknown question ID
+
+### QuestionRepositoryTest.java
+- Framework: JUnit 5, plain unit test (no Spring context)
+- Tests:
+  - `findAll()` returns all questions loaded from `questions.yml`
+  - `findById(id)` returns the correct question when ID exists
+  - `findById(id)` returns empty Optional when ID does not exist
 
 ## Checkstyle Configuration
 - Google Java Style Guide XML (standard, unmodified)

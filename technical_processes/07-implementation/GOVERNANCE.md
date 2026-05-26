@@ -17,11 +17,17 @@ AI generates:
 - Build configuration
 - Dockerfiles (per container, for packaging)
 
-docker-compose and deployment configuration belong in process 10 Transition.
+docker-compose belongs in process 08 Integration (first process that needs it). Production deployment configuration belongs in process 10 Transition.
 
 ## Build Tools and Coding Standards
 
 Build tools and coding standards are defined per container in the High Level document, based on ADRs from process 04 Architecture Definition.
+
+## Unit Tests
+
+Unit tests are **created** in this process, alongside the code they test.
+
+They are **executed** continuously during this process (on every build) as part of the implementation quality gate, and re-executed formally in process 09 Verification as evidence.
 
 ## High Level Format
 
@@ -44,4 +50,4 @@ AI expands the High Level into:
 
 ## Generated Artifacts
 
-The generated layer produces the actual source code and build files.
+The generated layer produces the actual source code, build files, and unit test code.

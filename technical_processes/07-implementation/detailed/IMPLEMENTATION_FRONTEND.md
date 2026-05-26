@@ -23,8 +23,15 @@ containers/frontend/
     │   └── ScoreSummary.jsx
     ├── api/
     │   └── quizApi.js
-    └── generated/
-        └── (OpenAPI-generated DTOs)
+    ├── generated/
+    │   └── (OpenAPI-generated DTOs)
+    └── __tests__/
+        ├── App.test.jsx
+        ├── QuestionCard.test.jsx
+        ├── AnswerButton.test.jsx
+        ├── Feedback.test.jsx
+        ├── ScoreSummary.test.jsx
+        └── quizApi.test.js
 ```
 
 ## Build Configuration — package.json
@@ -36,6 +43,11 @@ containers/frontend/
 ### Dev Dependencies
 - `vite`
 - `@vitejs/plugin-react`
+- `vitest`
+- `@testing-library/react`
+- `@testing-library/jest-dom`
+- `@testing-library/user-event`
+- `jsdom` — browser environment for Vitest
 - `eslint`
 - `eslint-config-airbnb`
 - `@openapitools/openapi-generator-cli`
@@ -43,6 +55,8 @@ containers/frontend/
 ### Scripts
 - `dev` — `vite` (development server)
 - `build` — `vite build` (production build)
+- `test` — `vitest run` (unit tests, single pass)
+- `test:watch` — `vitest` (watch mode)
 - `lint` — `eslint src/`
 - `generate-api` — runs OpenAPI generator to produce DTOs from `openapi.yml`
 
@@ -94,6 +108,47 @@ containers/frontend/
 - `fetchQuestions()` — GET /api/questions → returns question array
 - `submitAnswer(questionId, selectedOption)` — POST /api/answers → returns answer response
 - Uses `fetch` API (no external HTTP library)
+
+## Unit Test Specifications
+
+### App.test.jsx
+- Mocks: `quizApi` module (fetchQuestions, submitAnswer)
+- Tests:
+  - Renders a `QuestionCard` after questions load
+  - Selecting an option calls `submitAnswer` with correct arguments
+  - Correct feedback is shown after answer submission
+  - "Next" advances to the next question
+  - `ScoreSummary` is shown after the last question is answered
+
+### QuestionCard.test.jsx
+- Tests:
+  - Renders the question text
+  - Renders one `AnswerButton` per option
+  - Passes `disabled` prop to all buttons when disabled
+
+### AnswerButton.test.jsx
+- Tests:
+  - Renders the option text
+  - Calls `onClick` with the correct index when clicked
+  - Applies correct CSS class when `correct` prop is true
+  - Applies wrong CSS class when `wrong` prop is true
+  - Does not call `onClick` when `disabled`
+
+### Feedback.test.jsx
+- Tests:
+  - Shows "Correct!" when `correct` is true
+  - Shows wrong answer message with `correctOption` text when `correct` is false
+  - "Next" button calls `onNext`
+
+### ScoreSummary.test.jsx
+- Tests:
+  - Displays score and total correctly
+
+### quizApi.test.js
+- Mocks: global `fetch`
+- Tests:
+  - `fetchQuestions()` calls `GET /api/questions` and returns parsed JSON
+  - `submitAnswer()` calls `POST /api/answers` with correct body and returns parsed JSON
 
 ## ESLint Configuration
 - Extends `airbnb`
