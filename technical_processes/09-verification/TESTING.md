@@ -14,7 +14,7 @@ Each test layer is defined and documented in the process that owns it.
 | Unit — backend (JUnit 5 + Mockito) | Process 07 | [../../07-implementation/detailed/UNIT_TEST.md](../../07-implementation/detailed/UNIT_TEST.md) |
 | Unit — frontend (Vitest + RTL) | Process 07 | [../../07-implementation/detailed/UNIT_TEST.md](../../07-implementation/detailed/UNIT_TEST.md) |
 | Integration — API (REST-assured) | Process 08 | [../../08-integration/detailed/INTEGRATION_TEST.md](../../08-integration/detailed/INTEGRATION_TEST.md) |
-| Integration — nginx proxy (manual) | Process 08 | [../../08-integration/detailed/INTEGRATION_TEST.md](../../08-integration/detailed/INTEGRATION_TEST.md) |
+| Integration — nginx proxy (curl / CI step) | Process 08 | [../../08-integration/detailed/INTEGRATION_TEST.md](../../08-integration/detailed/INTEGRATION_TEST.md) |
 | End-to-End (Playwright) | Process 09 | [detailed/E2E_TEST.md](detailed/E2E_TEST.md) |
 
 Traceability of test cases to system requirements is in [detailed/VERIFICATION_DETAILED.md — Verification Matrix](detailed/VERIFICATION_DETAILED.md#verification-matrix).
@@ -92,9 +92,9 @@ docker compose up -d && npm test --prefix technical_processes/09-verification/ge
 | Backend unit | JUnit 5 + Mockito | 10 | No |
 | Frontend unit | Vitest + RTL | 15 | No |
 | Backend integration | REST-assured | 4 | No |
-| Nginx proxy | Manual / curl | 1 | Yes |
-| End-to-end | Playwright | 11 | Yes |
-| **Total automated** | | **40** | |
+| Nginx proxy (IT-05) | curl (CI step) | 1 | Yes |
+| End-to-end | Playwright | 14 | Yes |
+| **Total automated** | | **44** | |
 
 ---
 
@@ -150,6 +150,6 @@ The system passes the process 09 Verification quality gate when:
 
 1. All automated tests pass (0 failures, 0 errors).
 2. All 11 system requirements (SR-01 – SR-11) have at least one passing test case.
-3. Manual tests (IT-05, TC-05.x) are executed and their pass criteria are met.
+3. IT-05 (nginx proxy curl check) passes — automated as a CI step in the e2e-test job.
 
 See [GOVERNANCE.md](GOVERNANCE.md) for the full quality gate definition.
