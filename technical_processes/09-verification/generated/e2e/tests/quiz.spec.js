@@ -22,18 +22,24 @@ const QUESTIONS_YML = resolve(__dirname, '../../../../../containers/backend/src/
 // Docker Compose project name is "generated" (directory name)
 const BACKEND_CONTAINER = 'generated-backend-1';
 
+// On Windows (local dev), Playwright runs in the Windows Node.js context so Docker CLI
+// must be invoked via WSL. On Linux CI (GitHub Actions), use docker directly.
+// Set DOCKER_CMD=docker in the CI environment to override.
+const DOCKER_CMD = process.env.DOCKER_CMD || 'wsl docker';
+
 /** Restart backend container and wait for it to become healthy */
 function restartBackend() {
-  // Use 'wsl docker' because Playwright runs in the Windows Node.js context
-  execSync(`wsl docker restart ${BACKEND_CONTAINER}`, { stdio: 'pipe' });
+  execSync(`${DOCKER_CMD} restart ${BACKEND_CONTAINER}`, { stdio: 'pipe' });
   // Poll health endpoint until ready (max 30s)
   const deadline = Date.now() + 30_000;
   while (Date.now() < deadline) {
     try {
-      execSync(`wsl docker exec ${BACKEND_CONTAINER} wget -qO- http://localhost:8080/api/questions`, { stdio: 'pipe' });
+      execSync(`${DOCKER_CMD} exec ${BACKEND_CONTAINER} wget -qO- http://localhost:8080/api/questions`, { stdio: 'pipe' });
       return;
     } catch (_) {
-      execSync('ping -n 2 127.0.0.1 > nul 2>&1', { stdio: 'pipe', shell: true });
+      // Cross-platform 1s sleep: ping on Windows, sleep on Linux
+      try { execSync('ping -n 2 127.0.0.1 > nul 2>&1', { stdio: 'pipe', shell: true }); } catch (_) {}
+      try { execSync('sleep 1', { stdio: 'pipe', shell: true }); } catch (_) {}
     }
   }
   throw new Error('Backend did not become healthy after restart');
