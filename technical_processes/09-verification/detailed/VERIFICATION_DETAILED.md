@@ -19,8 +19,9 @@ All 11 system requirements (SR-01 – SR-11) from process 03 are verified.
 
 ### Test Environment
 
-- Full system started via docker-compose (defined in process 08 Integration; same images as production)
-- Playwright runs against `http://localhost` (frontend container port 80)
+- Full system started via docker-compose (`technical_processes/09-verification/generated/docker-compose.yml`)
+- `questions.yml` is volume-mounted into the backend container at `/app/config/questions.yml`, enabling TC-05.x live-reload tests
+- Playwright runs against `http://localhost:8888` (frontend container port 80, mapped to host port 8888)
 - Testcontainers manages backend container lifecycle for integration tests
 - No external network dependencies
 
@@ -34,7 +35,7 @@ All 11 system requirements (SR-01 – SR-11) from process 03 are verified.
 Source: SR-01 / AC-01.1
 Precondition: System is running; browser is open
 Steps:
-  1. Navigate to http://localhost
+  1. Navigate to http://localhost:8888
 Expected result: Question text is visible; at least 2 answer option buttons are displayed
 Pass criterion: Page contains one question text element and at least 2 enabled option buttons
 ```
@@ -109,24 +110,26 @@ Pass criterion: Page contains text matching "You got N out of M" where M equals 
 
 ```
 Source: SR-07 / AC-05.1
-Precondition: questions.yml contains N questions; backend is running
+Automation: Playwright modifies the volume-mounted questions.yml on the host and restarts the backend container
+Precondition: System running; questions.yml contains 3 questions
 Steps:
-  1. Add a new question entry to questions.yml
-  2. Restart the backend container
-  3. Navigate to http://localhost and complete all questions
+  1. Append a new question entry to questions.yml
+  2. Restart the backend container (docker restart generated-backend-1)
+  3. Navigate to http://localhost:8888 and complete all questions
 Expected result: The new question is presented during the quiz
-Pass criterion: Score summary shows "out of N+1"; new question text is visible during quiz
+Pass criterion: Score summary shows "out of 4"
 ```
 
 ### TC-05.2 — Edited question shows updated text
 
 ```
 Source: SR-07 / AC-05.2
-Precondition: questions.yml contains a question with known text T; backend is running
+Automation: Playwright modifies the volume-mounted questions.yml on the host and restarts the backend container
+Precondition: System running; questions.yml contains Q1 with known text T
 Steps:
-  1. Edit the question text in questions.yml to T'
+  1. Edit question text T to T' in questions.yml
   2. Restart the backend container
-  3. Navigate to http://localhost
+  3. Navigate to http://localhost:8888
 Expected result: Question text T' is displayed; T is no longer present
 Pass criterion: Page contains text T'; text T is absent
 ```
@@ -135,13 +138,14 @@ Pass criterion: Page contains text T'; text T is absent
 
 ```
 Source: SR-07 / AC-05.3
-Precondition: questions.yml contains N questions; backend is running
+Automation: Playwright modifies the volume-mounted questions.yml on the host and restarts the backend container
+Precondition: System running; questions.yml contains 3 questions
 Steps:
-  1. Remove one question entry from questions.yml
+  1. Remove Q3 from questions.yml
   2. Restart the backend container
-  3. Navigate to http://localhost and complete all questions
-Expected result: Quiz presents N-1 questions
-Pass criterion: Score summary shows "out of N-1"
+  3. Navigate to http://localhost:8888 and complete all questions
+Expected result: Quiz presents only 2 questions
+Pass criterion: Score summary shows "out of 2"
 ```
 
 ### TC-SR-08 — App accessible via browser without installation
@@ -151,7 +155,7 @@ Source: SR-08
 Precondition: System running via docker-compose; no browser plugins installed
 Steps:
   1. Open a standard web browser
-  2. Navigate to http://localhost
+  2. Navigate to http://localhost:8888
 Expected result: Quiz app loads and is fully functional
 Pass criterion: Quiz page renders without errors; no plugin, extension, or installation prompt is triggered
 ```
@@ -162,7 +166,7 @@ Pass criterion: Quiz page renders without errors; no plugin, extension, or insta
 Source: SR-09
 Precondition: System running; browser open
 Steps:
-  1. Navigate to http://localhost; record time from navigation start to first question rendered
+  1. Navigate to http://localhost:8888; record time from navigation start to first question rendered
   2. Click an answer option; record time from click to feedback rendered
 Expected result: Both measured durations are under 200ms
 Pass criterion: Playwright performance.timing measurements for both actions are each < 200ms
@@ -174,9 +178,9 @@ Pass criterion: Playwright performance.timing measurements for both actions are 
 Source: SR-10
 Precondition: System running via docker-compose
 Steps:
-  1. Navigate directly to http://localhost without any prior session or credentials
+  1. Navigate directly to http://localhost:8888 without any prior session or credentials
 Expected result: Quiz page is immediately accessible; no login page or prompt is shown
-Pass criterion: First rendered page is the quiz itself; HTTP response to http://localhost is 200
+Pass criterion: First rendered page is the quiz itself; HTTP response to http://localhost:8888 is 200
 ```
 
 ### TC-SR-11 — Questions file supports required fields
@@ -185,7 +189,7 @@ Pass criterion: First rendered page is the quiz itself; HTTP response to http://
 Source: SR-11 / AC-05.1
 Precondition: questions.yml contains a question with text, ≥2 options, and a correctOption field
 Steps:
-  1. Navigate to http://localhost
+  1. Navigate to http://localhost:8888
   2. Locate the question from questions.yml
   3. Submit the correct answer (index matching correctOption in yml)
 Expected result: Question text matches yml; all options are rendered; correct answer feedback is triggered by the correct index
@@ -204,7 +208,7 @@ Pass criterion: Question text visible matches yml text field; option count match
 | SR-04 | Highlight correct answer on wrong submission | TC-02.2 |
 | SR-05 | Advance to next question after feedback | TC-03.1 |
 | SR-06 | Display score summary after last question | TC-03.2 |
-| SR-07 | Load questions from static file | TC-05.1, TC-05.2, TC-05.3 |
+| SR-07 | Load questions from static file | TC-05.1, TC-05.2, TC-05.3, IT-01 |
 | SR-08 | Accessible via browser, no installation | TC-SR-08 |
 | SR-09 | Respond within 200ms | TC-SR-09 |
 | SR-10 | No authentication required | TC-SR-10 |

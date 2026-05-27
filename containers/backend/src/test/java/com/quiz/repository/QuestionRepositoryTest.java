@@ -6,14 +6,17 @@ import com.quiz.model.Question;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.test.util.ReflectionTestUtils;
 
 class QuestionRepositoryTest {
 
   private QuestionRepository repository;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws Exception {
     repository = new QuestionRepository();
+    ReflectionTestUtils.setField(repository, "questionsResource", new ClassPathResource("questions.yml"));
     repository.loadQuestions();
   }
 

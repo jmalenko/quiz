@@ -5,6 +5,8 @@ services:
       context: ../../../containers/backend
     expose:
       - "8080"
+    volumes:
+      - ../../../containers/backend/src/main/resources/questions.yml:/app/config/questions.yml
     networks:
       - quiz-net
     healthcheck:

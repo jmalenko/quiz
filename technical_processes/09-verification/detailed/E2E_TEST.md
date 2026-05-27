@@ -26,8 +26,11 @@ End-to-end tests are defined in process 09 Verification and executed against the
 | TC-02.1b | Wrong answer shows "Wrong" feedback | SR-03 |
 | TC-02.2 | Wrong answer reveals correct option number | SR-04 |
 | TC-03.1 | Next button advances to next question | SR-05 |
-| TC-03.2 | Score summary shown after last question | SR-06 |
-| TC-SR-08 | App accessible via browser without installation | SR-08 |
+| TC-03.2 | Score summary after last question | SR-06 |
+| TC-05.1 | New question appears after adding to questions file | SR-07 |
+| TC-05.2 | Edited question shows updated text | SR-07 |
+| TC-05.3 | Removed question no longer appears | SR-07 |
+| TC-SR-08 | App accessible without installation | SR-08 |
 | TC-SR-09 | Response time measurement | SR-09 |
 | TC-SR-10 | No authentication required | SR-10 |
 | TC-SR-11 | Questions file fields honoured | SR-11 |
@@ -66,7 +69,7 @@ docker compose -f technical_processes/09-verification/generated/docker-compose.y
 ### Expected output
 
 ```
-Running 11 tests using 1 worker
+Running 14 tests using 1 worker
 
   ✓ TC-01.1 — Question displayed with text and options
   ✓ TC-01.2 — Answer selection disables all buttons
@@ -75,12 +78,15 @@ Running 11 tests using 1 worker
   ✓ TC-02.2 — Wrong answer reveals correct option number in feedback
   ✓ TC-03.1 — Next button advances to next question
   ✓ TC-03.2 — Score summary shown after last question
+  ✓ TC-05.1 — New question appears after adding to questions file
+  ✓ TC-05.2 — Edited question shows updated text
+  ✓ TC-05.3 — Removed question no longer appears
   ✓ TC-SR-08 — App accessible via browser without installation
   ✓ TC-SR-09 — Response time under 200ms for initial load
   ✓ TC-SR-10 — No authentication required
   ✓ TC-SR-11 — Questions file fields are honoured
 
-  11 passed (30s)
+  14 passed (44s)
 ```
 
 ---
@@ -110,21 +116,7 @@ npm run test:report --prefix technical_processes/09-verification/generated/e2e
 
 ---
 
-## Notes on manual test cases
-
-The following test cases from [VERIFICATION_DETAILED.md](VERIFICATION_DETAILED.md) require manual execution (file editing + container restart) and cannot be automated:
-
-| Test ID | Scenario |
-|---------|----------|
-| TC-05.1 | New question appears after adding to questions file |
-| TC-05.2 | Edited question shows updated text |
-| TC-05.3 | Removed question no longer appears |
-
-Execute these against the pass criteria defined in VERIFICATION_DETAILED.md and record the result manually.
-
----
-
 ## Quality gate
 
-All automated E2E tests (11) must pass. Manual tests (TC-05.x) must be signed off before the process 09 Verification quality gate is closed.  
+All 14 automated E2E tests must pass.
 See [../GOVERNANCE.md](../GOVERNANCE.md) for the full quality gate definition.

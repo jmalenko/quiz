@@ -1,17 +1,43 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
+const { execSync } = require('child_process');
+const { readFileSync, writeFileSync } = require('fs');
+const { resolve } = require('path');
 
 /**
  * E2E Test Suite — Quiz Application
  *
- * Precondition: docker-compose stack is running on http://localhost
- *   docker compose up -d
+ * Precondition: docker-compose stack is running on http://localhost:8888
+ *   docker compose -f technical_processes/09-verification/generated/docker-compose.yml up -d
  *
  * Questions (from questions.yml, 3 total):
  *   Q1: "What is the capital of France?" — correct index 1 (Paris)
  *   Q2: "What is 2 + 2?"               — correct index 1 (4)
  *   Q3: "Which planet is the Red Planet?" — correct index 2 (Mars)
  */
+
+// Path to the questions.yml file mounted into the backend container
+const QUESTIONS_YML = resolve(__dirname, '../../../../../containers/backend/src/main/resources/questions.yml');
+
+// Docker Compose project name is "generated" (directory name)
+const BACKEND_CONTAINER = 'generated-backend-1';
+
+/** Restart backend container and wait for it to become healthy */
+function restartBackend() {
+  // Use 'wsl docker' because Playwright runs in the Windows Node.js context
+  execSync(`wsl docker restart ${BACKEND_CONTAINER}`, { stdio: 'pipe' });
+  // Poll health endpoint until ready (max 30s)
+  const deadline = Date.now() + 30_000;
+  while (Date.now() < deadline) {
+    try {
+      execSync(`wsl docker exec ${BACKEND_CONTAINER} wget -qO- http://localhost:8080/api/questions`, { stdio: 'pipe' });
+      return;
+    } catch (_) {
+      execSync('ping -n 2 127.0.0.1 > nul 2>&1', { stdio: 'pipe', shell: true });
+    }
+  }
+  throw new Error('Backend did not become healthy after restart');
+}
 
 test.describe('TC-01 — Question display and answer selection', () => {
 
@@ -116,6 +142,63 @@ test.describe('TC-03 — Quiz flow', () => {
   });
 });
 
+test.describe('TC-05 — Questions file live reload', () => {
+
+  const ORIGINAL = readFileSync(QUESTIONS_YML, 'utf8');
+
+  test.afterEach(() => {
+    // Always restore the original file and restart backend
+    writeFileSync(QUESTIONS_YML, ORIGINAL, 'utf8');
+    restartBackend();
+  });
+
+  test('TC-05.1 — New question appears after adding to questions file', async ({ page }) => {
+    const modified = ORIGINAL + `  - id: 4
+    text: "What colour is the sky?"
+    options: ["Red", "Blue", "Green"]
+    correctOption: 1
+`;
+    writeFileSync(QUESTIONS_YML, modified, 'utf8');
+    restartBackend();
+
+    await page.goto('/');
+    // Complete all 4 questions
+    for (let q = 0; q < 4; q++) {
+      await page.locator('.answer-button').first().click();
+      await page.locator('.feedback button', { hasText: 'Next' }).click();
+    }
+    await expect(page.locator('.score-summary')).toContainText('out of 4');
+  });
+
+  test('TC-05.2 — Edited question shows updated text', async ({ page }) => {
+    const modified = ORIGINAL.replace(
+      'What is the capital of France?',
+      'What is the capital of Germany?'
+    );
+    writeFileSync(QUESTIONS_YML, modified, 'utf8');
+    restartBackend();
+
+    await page.goto('/');
+    await expect(page.locator('.question-card h2')).toContainText('What is the capital of Germany?');
+  });
+
+  test('TC-05.3 — Removed question no longer appears', async ({ page }) => {
+    // Remove Q3 — keep only Q1 and Q2
+    const lines = ORIGINAL.split('\n');
+    const cutIndex = lines.findIndex(l => l.trim() === '- id: 3');
+    const modified = lines.slice(0, cutIndex).join('\n') + '\n';
+    writeFileSync(QUESTIONS_YML, modified, 'utf8');
+    restartBackend();
+
+    await page.goto('/');
+    for (let q = 0; q < 2; q++) {
+      await page.locator('.answer-button').first().click();
+      await page.locator('.feedback button', { hasText: 'Next' }).click();
+    }
+    await expect(page.locator('.score-summary')).toContainText('out of 2');
+  });
+});
+
 test.describe('TC-SR — System requirement tests', () => {
 
   test('TC-SR-08 — App accessible via browser without installation', async ({ page }) => {
@@ -130,8 +213,6 @@ test.describe('TC-SR — System requirement tests', () => {
     await page.goto('/');
     await page.locator('.question-card').waitFor({ state: 'visible' });
     const elapsed = Date.now() - start;
-    // Allow some tolerance for test infrastructure; target < 2000ms in CI
-    // Strict 200ms pass criterion is validated via Playwright performance API below
     const timing = await page.evaluate(() => {
       const nav = performance.getEntriesByType('navigation')[0];
       return nav ? nav.domContentLoadedEventEnd - nav.startTime : null;
@@ -144,23 +225,17 @@ test.describe('TC-SR — System requirement tests', () => {
 
   test('TC-SR-10 — No authentication required', async ({ page }) => {
     const response = await page.goto('/');
-    // Direct access returns 200 (not redirect to login)
     expect(response.status()).toBe(200);
-    // No login form present
     await expect(page.locator('input[type=password]')).toHaveCount(0);
     await expect(page.locator('form')).toHaveCount(0);
-    // Quiz is immediately shown
     await expect(page.locator('.question-card')).toBeVisible();
   });
 
   test('TC-SR-11 — Questions file fields are honoured (text, options, correctOption)', async ({ page }) => {
     await page.goto('/');
-    // Q1 text matches questions.yml
     await expect(page.locator('.question-card h2')).toContainText('What is the capital of France?');
-    // Options count matches yml (4 options for Q1)
     const buttons = page.locator('.answer-button');
     await expect(buttons).toHaveCount(4);
-    // Correct option index 1 gives green feedback
     await buttons.nth(1).click();
     await expect(page.locator('.feedback')).toHaveClass(/correct/);
   });
