@@ -25,3 +25,7 @@ Fully automated. No manual test execution.
 - Tests run inside Docker (same images as production)
 - No external services or network dependencies (all dependencies containerized)
 - CI pipeline executes all test levels on every push
+
+# Tear down
+
+Tear down the docker containers after test execution.
