@@ -152,4 +152,3 @@ The system passes the process 09 Verification quality gate when:
 2. All 11 system requirements (SR-01 – SR-11) have at least one passing test case.
 3. IT-05 (nginx proxy curl check) passes — automated as a CI step in the e2e-test job.
 
-See [GOVERNANCE.md](GOVERNANCE.md) for the full quality gate definition.
