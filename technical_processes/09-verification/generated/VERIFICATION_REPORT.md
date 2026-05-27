@@ -12,11 +12,11 @@
 | Backend unit | 10 | 10 | 0 | ✅ PASS |
 | Frontend unit | 15 | 15 | 0 | ✅ PASS |
 | Backend integration | 4 | 4 | 0 | ✅ PASS |
-| Nginx proxy (IT-05) | 1 | — | — | ⏳ PENDING (Docker required) |
-| End-to-end (Playwright) | 11 | — | — | ⏳ PENDING (Docker required) |
+| Nginx proxy (IT-05) | 1 | 1 | 0 | ✅ PASS |
+| End-to-end (Playwright) | 11 | 11 | 0 | ✅ PASS |
 | Manual (TC-05.x) | 3 | — | — | ⏳ PENDING |
 
-**Overall verdict: PARTIAL — automated tests on local stack pass; E2E and manual tests pending Docker environment.**
+**Overall verdict: PASS — all automated tests pass. Manual tests (TC-05.x) pending sign-off.**
 
 ---
 
@@ -25,13 +25,14 @@
 | Item | Value |
 |------|-------|
 | Date | 2026-05-27 |
-| Java | OpenJDK 17.0.15 (Corretto) |
+| Java | OpenJDK 21 (Eclipse Temurin, inside Docker) |
 | Maven | 3.9 |
-| Node.js | — |
+| Node.js | 20 |
 | Vitest | 3.2.4 |
 | Playwright | 1.52.0 (Chromium 148) |
-| OS | Windows 11 |
-| Docker | not available in this environment |
+| OS | Windows 11 + WSL2 Docker |
+| Docker | Docker Desktop 28.1.1 (WSL2 backend) |
+| Frontend URL | http://localhost:8888 |
 
 ---
 
@@ -79,38 +80,40 @@ Checkstyle: **0 violations**.
 
 ---
 
-## Nginx Proxy Test (IT-05) — Manual
+## Nginx Proxy Test (IT-05)
 
-**Precondition:** docker-compose stack running  
-**Status:** ⏳ PENDING — Docker not available in current environment
+**Command:** `curl -s http://localhost:8888/api/questions`  
+**Date:** 2026-05-27  
+**Result:** ✅ PASS — HTTP 200, JSON array of 3 questions returned via nginx reverse proxy
 
 ```
-Result: [ ] PASS  [ ] FAIL  [ ] N/A
-Tester: _______________  Date: _______________
-Notes: _______________________________________________
+curl -s http://localhost:8888/api/questions
+→ [{"id":1,"text":"What is the capital of France?",...},{"id":2,...},{"id":3,...}]
 ```
 
 ---
 
 ## End-to-End Tests — Playwright
 
-**Command:** `docker compose up -d && npm test --prefix technical_processes/09-verification/generated/e2e`  
-**Report:** `technical_processes/09-verification/generated/e2e/playwright-report/index.html`  
-**Status:** ⏳ PENDING — Docker not available in current environment
+**Command:** `docker compose -f technical_processes/09-verification/generated/docker-compose.yml up -d && npm test --prefix technical_processes/09-verification/generated/e2e`  
+**Date:** 2026-05-27  
+**Duration:** 14.9s  
+**Report:** `technical_processes/09-verification/generated/e2e/playwright-report/index.html`
 
-| Test ID | Scenario | SR | Result |
-|---------|----------|----|--------|
-| TC-01.1 | Question displayed with text and options | SR-01 | ⏳ |
-| TC-01.2 | Answer selection disables all buttons | SR-02 | ⏳ |
-| TC-02.1 | Correct answer shows "Correct!" | SR-03 | ⏳ |
-| TC-02.1b | Wrong answer shows "Wrong" | SR-03 | ⏳ |
-| TC-02.2 | Wrong answer reveals correct option | SR-04 | ⏳ |
-| TC-03.1 | Next button advances to next question | SR-05 | ⏳ |
-| TC-03.2 | Score summary after last question | SR-06 | ⏳ |
-| TC-SR-08 | App accessible without installation | SR-08 | ⏳ |
-| TC-SR-09 | Response time measurement | SR-09 | ⏳ |
-| TC-SR-10 | No authentication required | SR-10 | ⏳ |
-| TC-SR-11 | Questions file fields honoured | SR-11 | ⏳ |
+| Test ID | Scenario | SR | Result | Duration |
+|---------|----------|----|--------|----------|
+| TC-01.1 | Question displayed with text and options | SR-01 | ✅ PASS | 2.6s |
+| TC-01.2 | Answer selection disables all buttons | SR-02 | ✅ PASS | 1.1s |
+| TC-02.1 | Correct answer shows "Correct!" | SR-03 | ✅ PASS | 1.0s |
+| TC-02.1b | Wrong answer shows "Wrong" | SR-03 | ✅ PASS | 1.1s |
+| TC-02.2 | Wrong answer reveals correct option | SR-04 | ✅ PASS | 1.1s |
+| TC-03.1 | Next button advances to next question | SR-05 | ✅ PASS | 1.1s |
+| TC-03.2 | Score summary after last question | SR-06 | ✅ PASS | 1.1s |
+| TC-SR-08 | App accessible without installation | SR-08 | ✅ PASS | 814ms |
+| TC-SR-09 | Response time under 200ms (actual: 51ms load / 19ms DOMContentLoaded) | SR-09 | ✅ PASS | 874ms |
+| TC-SR-10 | No authentication required | SR-10 | ✅ PASS | 975ms |
+| TC-SR-11 | Questions file fields honoured | SR-11 | ✅ PASS | 1.1s |
+| **Total** | | | **✅ 11/11 PASS** | **14.9s** |
 
 ---
 
@@ -118,9 +121,9 @@ Notes: _______________________________________________
 
 | Test ID | Scenario | SR | Result |
 |---------|----------|----|--------|
-| TC-05.1 | New question after adding to questions.yml | SR-07 | ⏳ |
-| TC-05.2 | Edited question shows updated text | SR-07 | ⏳ |
-| TC-05.3 | Removed question no longer appears | SR-07 | ⏳ |
+| TC-05.1 | New question after adding to questions.yml | SR-07 | ⏳ PENDING |
+| TC-05.2 | Edited question shows updated text | SR-07 | ⏳ PENDING |
+| TC-05.3 | Removed question no longer appears | SR-07 | ⏳ PENDING |
 
 ```
 Tester: _______________  Date: _______________
@@ -133,19 +136,19 @@ Notes: _______________________________________________
 
 | SR | Requirement | Test Cases | Status |
 |----|-------------|------------|--------|
-| SR-01 | Display question with ≥2 options | TC-01.1 | ⏳ E2E pending |
-| SR-02 | Register answer selection | TC-01.2 | ⏳ E2E pending |
-| SR-03 | Show correct/wrong feedback | TC-02.1, TC-02.1b | ⏳ E2E pending |
-| SR-04 | Highlight correct answer on wrong submission | TC-02.2 | ⏳ E2E pending |
-| SR-05 | Advance to next question | TC-03.1 | ⏳ E2E pending |
-| SR-06 | Display score summary | TC-03.2 | ⏳ E2E pending |
+| SR-01 | Display question with ≥2 options | TC-01.1 | ✅ PASS |
+| SR-02 | Register answer selection | TC-01.2 | ✅ PASS |
+| SR-03 | Show correct/wrong feedback | TC-02.1, TC-02.1b | ✅ PASS |
+| SR-04 | Highlight correct answer on wrong submission | TC-02.2 | ✅ PASS |
+| SR-05 | Advance to next question | TC-03.1 | ✅ PASS |
+| SR-06 | Display score summary | TC-03.2 | ✅ PASS |
 | SR-07 | Load questions from static file | TC-05.1..3, IT-01 | ✅ IT-01 PASS / manual pending |
-| SR-08 | Accessible via browser | TC-SR-08, IT-01 | ✅ IT-01 PASS / E2E pending |
-| SR-09 | Respond within 200ms | TC-SR-09 | ⏳ E2E pending |
-| SR-10 | No authentication | TC-SR-10 | ⏳ E2E pending |
-| SR-11 | Questions file required fields | TC-SR-11, IT-01 | ✅ IT-01 PASS / E2E pending |
+| SR-08 | Accessible via browser | TC-SR-08, IT-01 | ✅ PASS |
+| SR-09 | Respond within 200ms | TC-SR-09 | ✅ PASS (51ms actual) |
+| SR-10 | No authentication | TC-SR-10 | ✅ PASS |
+| SR-11 | Questions file required fields | TC-SR-11, IT-01 | ✅ PASS |
 
-Coverage: **11/11 SR addressed** — E2E and manual campaigns required to close.
+Coverage: **11/11 SR addressed** — 10/11 fully verified by automated tests; SR-07 manual campaign pending.
 
 ---
 

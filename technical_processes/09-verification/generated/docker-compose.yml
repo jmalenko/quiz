@@ -1,0 +1,29 @@
+services:
+
+  backend:
+    build:
+      context: ../../../containers/backend
+    expose:
+      - "8080"
+    networks:
+      - quiz-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/api/questions"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ../../../containers/frontend
+    ports:
+      - "8888:80"
+    networks:
+      - quiz-net
+    depends_on:
+      backend:
+        condition: service_healthy
+
+networks:
+  quiz-net:
+    driver: bridge

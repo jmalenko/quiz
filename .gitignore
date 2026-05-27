@@ -6,8 +6,6 @@ Thumbs.db
 .DS_Store
 
 # Generated artifacts (tracked separately per phase)
-# Uncomment if you want to ignore AI-generated outputs until approved:
-# **/GENERATED_*.md
 
 # ── Build output ──────────────────────────────────────────────────────────────
 containers/backend/target/
@@ -15,11 +13,12 @@ containers/frontend/dist/
 
 # ── Node dependencies ─────────────────────────────────────────────────────────
 containers/frontend/node_modules/
-technical_processes/09-verification/generated/e2e/node_modules/
 
 # ── Test / coverage output ────────────────────────────────────────────────────
 containers/frontend/coverage/
 containers/frontend/test-results.json
+containers/frontend/test-results/
+technical_processes/09-verification/generated/e2e/node_modules/
 technical_processes/09-verification/generated/e2e/playwright-report/
 technical_processes/09-verification/generated/e2e/test-results/
 

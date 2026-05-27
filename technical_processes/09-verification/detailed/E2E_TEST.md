@@ -54,13 +54,13 @@ technical_processes/09-verification/generated/e2e/node_modules/.bin/playwright i
 
 ```bash
 # 1. Start the full stack
-docker compose up -d
+docker compose -f technical_processes/09-verification/generated/docker-compose.yml up -d
 
 # 2. Run all E2E tests
 npm test --prefix technical_processes/09-verification/generated/e2e
 
 # 3. Tear down
-docker compose down
+docker compose -f technical_processes/09-verification/generated/docker-compose.yml down
 ```
 
 ### Expected output

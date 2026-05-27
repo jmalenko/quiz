@@ -6,7 +6,7 @@ export default defineConfig({
   retries: 0,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL: 'http://localhost',
+    baseURL: 'http://localhost:8888',
     headless: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
