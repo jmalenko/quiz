@@ -1,12 +1,14 @@
-# Human & AI-Generated Software System — Governance Framework
+# Quiz — AI-Assisted Software Engineering Reference
 
-This repository defines the **complete governance system** for building software that is predominantly AI-generated.
+A browser-based quiz application built as a worked example of **AI-assisted software engineering**.
+
+The repository contains both the **working software** (quiz app) and the **complete governance framework** that produced it — from business case through deployment — following the ISO/IEC/IEEE 12207 lifecycle.
 
 ## Philosophy
 
 > **Humans decide WHAT and WHY. AI decides HOW.**
 
-All rules governing this project are defined in [GOVERNANCE.md](GOVERNANCE.md).
+All governance rules are defined in [GOVERNANCE.md](GOVERNANCE.md).
 
 ---
 
