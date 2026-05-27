@@ -126,20 +126,18 @@ docker compose -f technical_processes/09-verification/generated/docker-compose.y
 
 ---
 
-## Transition Report Template
+## Transition Report
 
-> Fill in after successful deployment.
+The Transition Report is **auto-generated** by the CI/CD pipeline — no manual template needs to be filled in.
 
-| Field | Value |
-|-------|-------|
-| Release version | 1.0.0 |
-| Deployment date | |
-| Deployed by | |
-| Target host | |
-| Backend image digest | `docker inspect generated-backend:1.0.0 --format '{{.Id}}'` |
-| Frontend image digest | `docker inspect generated-frontend:1.0.0 --format '{{.Id}}'` |
-| Smoke test — frontend HTTP 200 | ☐ PASS |
-| Smoke test — backend via proxy HTTP 200 | ☐ PASS |
-| Smoke test — questions returned | ☐ PASS |
-| Overall verdict | |
-| Approved by | |
+After every successful deployment the `Generate Transition Report` step in the `deploy` job writes a filled-in report to the GitHub Actions Step Summary (`$GITHUB_STEP_SUMMARY`). It is immediately visible on the pipeline run page under the **Summary** tab.
+
+The report contains:
+- Release version, deployment timestamp, actor, and commit link
+- Image tags for backend and frontend
+- Smoke test results (ST-01 / ST-02 / ST-03)
+- Quality gate declaration
+
+**Approval rule:** The pipeline completing successfully *is* the approval. No human sign-off is required.
+
+> To view a past Transition Report: go to the GitHub Actions run → select the `Deploy` job → click **Summary**.

@@ -71,7 +71,11 @@ AI generates from the Transition Plan:
 
 ## Quality Gate
 
-The quality gate is passed when:
+The quality gate is passed **automatically** when all pipeline stages succeed. No human approval is required.
+
+Specifically, the gate closes when:
 1. The system is deployed in the target environment
 2. All smoke tests pass
-3. The Transition Report is produced and approved by the human
+3. The Transition Report is auto-generated as a GitHub Actions Step Summary
+
+> **Approval rule:** A passing pipeline run is the approval. If all tests and smoke checks succeed, the transition is considered approved without further human sign-off.

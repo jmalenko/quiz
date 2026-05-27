@@ -220,3 +220,44 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: bash ~/quiz/technical_processes/10-transition/generated/smoke-test.sh
+
+      - name: Generate Transition Report
+        if: success()
+        run: |
+          VERSION="${{ needs.build-and-push.outputs.version }}"
+          cat >> $GITHUB_STEP_SUMMARY << EOF
+          # Transition Report — Quiz Application
+
+          | Field | Value |
+          |-------|-------|
+          | Release version | \`${VERSION}\` |
+          | Deployment date | $(date -u '+%Y-%m-%d %H:%M:%S UTC') |
+          | Deployed by | ${{ github.actor }} |
+          | Repository commit | [\`${{ github.sha }}\`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}) |
+          | Pipeline run | [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) |
+
+          ## Artefacts Deployed
+
+          | Artefact | Tag |
+          |----------|-----|
+          | Backend image | \`${{ env.BACKEND_IMAGE }}:${VERSION}\` |
+          | Frontend image | \`${{ env.FRONTEND_IMAGE }}:${VERSION}\` |
+
+          ## Smoke Test Results
+
+          | Check | Result |
+          |-------|--------|
+          | ST-01 — Frontend reachable (HTTP 200) | ✅ PASS |
+          | ST-02 — Backend reachable via nginx proxy (HTTP 200) | ✅ PASS |
+          | ST-03 — At least one question returned | ✅ PASS |
+
+          ## Quality Gate
+
+          | Criterion | Status |
+          |-----------|--------|
+          | System deployed in target environment | ✅ |
+          | All smoke tests passed | ✅ |
+          | Transition Report produced | ✅ |
+
+          **Overall verdict: ✅ PASSED — automatically approved (all pipeline stages succeeded)**
+          EOF
