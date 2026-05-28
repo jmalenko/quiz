@@ -2,16 +2,24 @@
 
 ## Methodology
 
-This process follows **IEEE/IEC/IEEE 29119:2013–2021 — Software and systems engineering — Software Testing**, specifically:
+This process follows two complementary standards:
+
+### IEEE/IEC/IEEE 29119:2013–2021 — Software Testing
+
+Governs the structure, documentation, and execution of all test activities, specifically:
 
 - **Part 1** (Concepts and definitions) — testing vocabulary and concepts
 - **Part 2** (Test processes) — organizational, test management, and dynamic test processes
 - **Part 3** (Test documentation) — test plan, test design specification, test case specification, test execution log, test results report
 
-It is also governed by **IEEE 1012:2016 — Standard for System, Software, and Hardware Verification and Validation**, which defines the Verification process within the IEEE/IEC 12207:2017 lifecycle and mandates:
+### IEEE 1012:2016 — Standard for System, Software, and Hardware Verification and Validation
+
+Defines the Verification process within the IEEE/IEC 12207:2017 lifecycle and mandates:
 - Traceability between requirements and verification evidence
 - Independence of verification activities from implementation
 - A Verification Report as the process exit artifact
+
+> **Relationship to Validation (process 11):** Verification confirms the system was built correctly against system requirements (SR-nn). Validation (process 11) subsequently confirms the deployed system satisfies the original stakeholder needs.
 
 ## High Level Format
 

@@ -21,4 +21,7 @@ containers/frontend/test-results/
 technical_processes/09-verification/generated/e2e/node_modules/
 technical_processes/09-verification/generated/e2e/playwright-report/
 technical_processes/09-verification/generated/e2e/test-results/
+technical_processes/11-validation/generated/validation/node_modules/
+technical_processes/11-validation/generated/validation/playwright-report/
+technical_processes/11-validation/generated/validation/test-results/
 

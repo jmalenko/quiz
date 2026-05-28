@@ -1,0 +1,12 @@
+{
+  "name": "quiz-validation",
+  "version": "1.0.0",
+  "description": "Process 11 Validation — automated acceptance tests against the deployed Quiz application",
+  "scripts": {
+    "test": "playwright test",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0"
+  }
+}
