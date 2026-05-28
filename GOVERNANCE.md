@@ -52,7 +52,15 @@ A change at High Level MUST be propagated to Detailed (and then to Artifacts) be
 **Across processes:**\
 A change in any process MUST propagate to all affected downstream processes before their quality gates are passed. Each process declares its upstream dependency via attribution.
 
-## 4. Directory Convention
+## 4. Change Management
+
+When a change is needed — whether to fix a defect, respond to a new need, or adapt to an environment change — it is managed through a **Change Request (CR)**.
+
+A Change Request is usually expressed as a standalone document, but in this project it is expressed by updating the relevant High Level document and propagating the change forward.
+
+To apply a change, identify the earliest process in the lifecycle whose content is affected, update that High Level document, and let the change propagate forward through all downstream processes (Propagation Rule, § 3).
+
+## 5. Directory Convention
 
 ```
 <directory>/
@@ -75,7 +83,7 @@ This attribution IS the traceability mechanism:
 - When the referenced source changes, the file becomes **stale** and MUST be regenerated
 - A file with no attribution has no known source and SHOULD be removed or attributed
 
-## 5. AI Behavior
+## 6. AI Behavior
 
 ### Autonomy
 
