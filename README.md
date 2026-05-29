@@ -30,8 +30,8 @@ All governance rules are defined in [GOVERNANCE.md](GOVERNANCE.md).
 | Transition                                  | 10-transition/[TRANSITION.md](technical_processes/10-transition/TRANSITION.md)                                                                            | Is the system deployed and operational?                 |
 | Validation                                  | 11-validation/[GOVERNANCE.md](technical_processes/11-validation/GOVERNANCE.md) / [VALIDATION.md](technical_processes/11-validation/VALIDATION.md)         | Does the system satisfy stakeholder needs?              |
 | Operation                                   | 12-operation/[GOVERNANCE.md](technical_processes/12-operation/GOVERNANCE.md) / [OPERATION.md](technical_processes/12-operation/OPERATION.md)              | Is the system operating within SLA?                     |
-| Maintenance                                 | `technical_processes/13-maintenance/`                                                                                                                     | Is the maintenance release ready?                       |
-| Disposal                                    | `technical_processes/14-disposal/`                                                                                                                        | —                                                       |
+| Maintenance                                 | 13-maintenance/[GOVERNANCE.md](technical_processes/13-maintenance/GOVERNANCE.md)                                                                          | Is the maintenance release ready?                       |
+| Disposal                                    | 14-disposal/[GOVERNANCE.md](technical_processes/14-disposal/GOVERNANCE.md) / [DISPOSAL.md](technical_processes/14-disposal/DISPOSAL.md)                   | —                                                       |
 
 ### Technical Management Processes
 
